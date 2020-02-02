@@ -26,14 +26,15 @@ urlpatterns = [
     path('createGroup/<username>/<groupName>/', views.createGroup),
     path('joinGroup/<username>/<groupID>/', views.joinGroup),
     path('getGroupNames/<username>/', views.getGroupNames),
+    path('getGroupId/<username>/<groupName>/', views.getGroupId),
     path('addItem/<username>/<groupID>/<itemName>/', views.addItem),
     path('deleteItem/<groupID>/<itemName>/', views.deleteItem),
     path('getItems/<groupID>/', views.getItems),
     path('DEBUG_resetUserPassCollection/', views.DEBUG_resetUserPassCollection),
-
-
-    
-
-
+    path('testing/', views.testing),
+    path('homePage/', views.homePage),
+    path('groupsPage/', views.groupsPage),
+    path('signUpPage/', views.signUpPage),
+    path('itemPage/<groupName>/', views.itemPage),
     
 ]

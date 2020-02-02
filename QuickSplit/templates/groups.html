@@ -1,0 +1,50 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<html>
+    <head>
+        <title> The simplest HTML example hell yeah
+        </title>
+    </head>
+<body>
+    <h1> QuickSplit </h1>
+     <ol>
+     </ol>
+    <script>
+        
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest()
+        var user = localStorage.getItem('user');
+        console.log(user)
+        // Open a new connection, using the GET request on the URL endpoint
+        request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getGroupNames/' + user + '/', true)
+
+        request.onload = function() {
+            // Begin accessing JSON data here
+            var obj = JSON.parse(this.response);
+            console.log(obj)
+            console.log(obj.groupNames.length);
+            localStorage["groupnameslen"] = obj.groupNames.length;
+
+            for(var i=0; i<obj.groupNames.length; i++){
+                localStorage['identifier'] = obj.groupNames[i];
+                name = obj.groupNames[i];
+                localStorage['name']= name;
+                $("ol").append(`<li class = "listItems" value = ${i+1}>${obj.groupNames[i]}</li>`).click(function(element){
+
+                    window.location.replace(`http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/itemPage/`+name+'/');
+                });
+            }
+        }
+        
+        
+    request.send();
+        // Send request
+
+    </script>
+    
+    <style>
+        .listItems{
+            font-Size: 20px;
+        }
+    </style>
+</body>
+</html>

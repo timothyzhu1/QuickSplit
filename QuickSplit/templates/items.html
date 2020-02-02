@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Your Title</title>
+  <meta name="Description" content="Your description" />
+  <meta name="Keywords" content="Your, comma delimited, keywords" />
+  <meta equiv="content-type" content="text/html; charset=utf-8" />
+  <!-- <link rel="stylesheet" type="text/css" media="all" href="your-css-stylesheet.css" /> -->
+</head >
+<body>
+    <ol>
+    </ol>
+    <script>
+        var name = localStorage.getItem('name');
+        console.log(name);
+        var user = localStorage.getItem('user');
+        console.log(user);
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest()
+        // Open a new connection, using the GET request on the URL endpoint
+        request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getGroupId/'+user+'/'+name+'/', true)
+        request.onload = function() {
+        // Begin accessing JSON data here
+            var obj = JSON.parse(this.response);
+            var groupID = obj.groupID;
+            localStorage["groupID"] = groupID;
+            console.log(groupID);
+        }
+        // Send request
+        request.send()
+        var agroupID = localStorage["groupID"];
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/viewItems/'+agroupID+'/', true)
+        request2.onload = function() {
+        // Begin accessing JSON data here
+            var obj = JSON.parse(this.response);
+            itemslen = obj.items.length;
+            localStorage["itemslen"] = itemslen;
+            for(var i=0; i<itemslen; i++){
+                localStorage['identifier'] = obj.items[i];
+                $("ol").append(`<li class = "listItems" value = ${i+1}>${obj.items[i]} ; added by ${obj.addedBy[i]}</li>`)
+            }
+        }
+        // Send request
+        request2.send()
+    </script>
+</body>
+</html>

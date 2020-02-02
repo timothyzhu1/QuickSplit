@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from pymongo import MongoClient
 from rest_framework.decorators import api_view
+# from django.http import HttpResponse
+
 
 
 
@@ -24,7 +26,8 @@ def signIn(request, username, password):
     else:
         res = "N"
     print('LOG: signIn:', res)
-    return Response(res)
+    res2 = {"Worked":res}
+    return Response(res2)
 
 @api_view(('GET',))
 def signUp(request, username, password):
@@ -36,7 +39,8 @@ def signUp(request, username, password):
         newDoc = {"username" :username, "password" : password, "groups":[], "givenGroupNames": []}
         userPassCollections.insert_one(newDoc)
     print('LOG: signUp:', res)
-    return Response(res)
+    res2 = {"Worked": res}
+    return Response(res2)
 
 @api_view(('GET',))
 def createGroup(request, username, groupName):
@@ -59,8 +63,8 @@ def createGroup(request, username, groupName):
 
     else: # the user is already in a group with the same name
         res = "N"
-
-    return Response(res)
+    res2 = {"Worked": res}
+    return Response(res2)
 
 
 @api_view(('GET',))
@@ -71,22 +75,26 @@ def joinGroup(request, username, groupID):
 
     # add the group number to the list of groups that the user has access to ("groups")
     if (int(groupID) - 1000) > groupNum:
-        return Response("D")
+        res2 = {"Worked": "D"}
+        return Response(res2)
 
     # add the givengroupname to the user's array "givenGroupName" 
     for i in groupIdArray:
         if (str(int(groupID) - 1000)) == i:
-            return Response("N")
+            res2 = {"Worked": "N"}
+            return Response(res2)
     
     # add the username to the group's "groupMembers"
     givenGroupNameOfTheGroupId = loginDb[str(int(groupID)-1000)].find_one({"globals": "Y"})["groupName"] # var name is self explanatory
     if givenGroupNameOfTheGroupId not in singleDict["givenGroupNames"]:
         userPassCollections.update_one({"username": username}, {"$set":{"givenGroupNames": singleDict["givenGroupNames"] + [givenGroupNameOfTheGroupId]}})
     else:
-        return Response("F")
+        res2 = {"Worked": "F"}
+        return Response(res2)
     userPassCollections.update_one({"username": username}, {"$set":{"groups": singleDict["groups"] + [str(int(groupID)-1000)]}})
     loginDb[str(int(groupID)-1000)].update_one({"globals": "Y"}, {"$set":{"groupMembers": loginDb[str(int(groupID)-1000)].find_one({"globals": "Y"})["groupMembers"]+[username]}})
-    return Response("Y")
+    res2 = {"Worked": "Y"}
+    return Response(res2)
 
 @api_view(('GET',))
 def getGroupNames(request, username):
@@ -106,7 +114,8 @@ def addItem(request, username, groupID, itemName):
                 item = {"itemName":itemName, "addedBy" : username}
                 groupCollection.insert_one(item)
                 res = "Y"
-    return Response(res)
+    res2 = {"Worked": res}
+    return Response(res2)
 
 @api_view(('GET',))
 def deleteItem(request, groupID, itemName):
@@ -120,8 +129,8 @@ def deleteItem(request, groupID, itemName):
                 item = {"itemName":itemName}
                 groupCollection.delete_one(item)
                 res = "Y"
-
-    return Response(res)
+    res2 = {"Worked": res}
+    return Response(res2)
 
 @api_view(('GET',))
 def getItems(request, groupID):
@@ -134,11 +143,16 @@ def getItems(request, groupID):
             groupCollection = loginDb[str(i)]
             foundID = groupCollection.find_one({"globals":"Y"})["groupID"]
             items = []
+            added = []
             if(foundID == int(groupID)):
                 for item in groupCollection.find({"globals":{"$ne":"Y"}}):
-                      items.append(str(item))
-                res = items
-
+                      items.append(str(item["itemName"]))
+                      added.append(str(item["addedBy"]))
+                res1 = items
+                res2 = added
+    res = {"items": res1,
+            "added": res2,
+    }
     return Response(res)
 
 @api_view(('GET',))
@@ -149,7 +163,8 @@ def leaveGroup(request, username, groupID):
 
     # check if the user is in the group
     if str(int(groupID) - 1000) not in groupIdArray:
-        return Response("N") 
+        res2 = {"Worked": "N"}
+        return Response(res2) 
     
     givenGroupNameOfTheGroupId = loginDb[str(int(groupID)-1000)].find_one({"globals": "Y"})["groupName"] # var name is self explanatory
    
@@ -169,7 +184,41 @@ def leaveGroup(request, username, groupID):
     loginDb[str(int(groupID)-1000)].update_one({"globals": "Y"}, {"$set":{"groupMembers": temp}})
 
     #also, if the group is empty after the removal, delete the group
-    return Response("Y")  
+    res2 = {"Worked": "Y"}
+    return Response(res2)  
+
+@api_view(('GET',))
+def getGroupId(request, username, groupName):
+    singleDict = userPassCollections.find_one({"username": username})
+    i = singleDict["givenGroupNames"].index(groupName)
+    
+    res = {"groupId": singleDict["groups"][i]}
+    print(res)
+    return Response(res)
+
+@api_view(('GET',))
+def testing(request):
+    return render(request, 'testing.html')
+
+@api_view(('GET',))
+def homePage(request):
+    return render(request, 'home.html')
+
+@api_view(('GET',))
+def groupsPage(request):
+    return render(request, 'groups.html')
+
+@api_view(('GET',))
+def signUpPage(request):
+    return render(request, 'signUp.html')
+
+@api_view(('GET',))
+def itemPage(request, groupName):
+
+    return render(request, 'items.html')
+
+
+
 
 
 ####################### DEBUG FUNCTIONS BELOW ###########################
@@ -177,4 +226,6 @@ def leaveGroup(request, username, groupID):
 def DEBUG_resetUserPassCollection(request):
     userPassCollections.delete_many({})
     userPassCollections.insert_one({"globals":"Y", "numgroups":0})
-    return Response("Y")
+    return Response("Y")    
+
+    

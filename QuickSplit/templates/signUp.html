@@ -1,0 +1,196 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!DOCTYPE html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+<html>
+
+<style>
+html, body {
+  margin: 0; 
+  height: 100%;
+}
+ 
+.brand_logo_container {
+  position: absolute;
+  float: top;
+  top:1%;
+  left:5%;
+ 
+  padding: 10%;
+  text-align: center;
+}
+
+.big_brand_logo_container {
+  position: absolute;
+  float: top;
+  top:17%;
+  left:35%;
+  padding: 10%;
+  text-align: center;
+  
+}
+
+.brand_logo {
+  position: absolute;
+  top:4%;
+  height: 20%;
+  width: 20%;
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: 99
+}
+
+.big_brand_logo {
+  position: absolute;
+  top: 4%;
+  height: 60%;
+  width: 60%;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+.pad{
+      padding:20px;
+      position:relative;
+}
+#groups{
+  padding:20px;
+  font-size: 50px;
+  text-align: center;
+}
+
+  
+#centerSubmit
+{
+    width: 40%;
+    height: %;
+    position:absolute;
+    left:30%;
+    top:76%;
+    z-index: 999;
+    font-size: 150%;
+
+}
+
+#scootdown{
+    position: relative;
+    padding-top:10%;
+}
+
+#signUp
+{
+    position: relative;
+    top: 4%;
+    /* left: 41%; */
+    text-align: center;
+}
+
+#user
+{
+    position: relative;
+    border: 2px solid light gray;
+    border-radius: 4px;
+    z-index: 99999999;
+}
+#pass
+{
+    border: 2px solid light gray;
+    border-radius: 4px;
+}
+
+#logoWord
+{
+    font-family: 'Raleway', sans-serif;
+    padding: 2%;
+    font-size: 200%;
+    z-index: 9999;
+}
+
+#bigtext
+{
+    padding-left: 1%;
+    
+}
+#passbigtext
+{
+    padding-left: 1%;
+}
+
+</style>
+<h1 class="jumbotron" id = "logoWord">QuickSplit</h1 style>
+
+
+  <div class="brand_logo_container">
+    <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="brand_logo" alt="Logo">
+  </div>
+
+  <body>
+    <p id="groups" class = "center">Sign Up!</title>
+      <form>
+        <div class="form-group">
+          <label id = "bigtext" for="user">Username</label>
+          <input type="text" id="user" class="form-control" id="user" placeholder="Enter user">
+        </div>
+        <div class="form-group">
+          <label id="passbigtext" for="pass">Password</label>
+          <input type="password" class="form-control" id="pass" placeholder="Enter password">
+        </div>
+        <div class="form-check">
+        </div>
+      </form>
+<!-- 
+      <form>
+          <label for="user" class = "centersign">Username:</label> </br>
+          <input id="user" type="text" placeholder="Enter username">
+      </br>
+          <label for="pass" class="centersign">Password:</label> </br>
+          <input id="pass" type="text" placeholder="Enter password">
+      </form>   -->
+      <button type="button" id="centersubmit" onclick="getForms()" class="btn btn-secondary" style="background-color:#5B618A;" >Submit</button>
+      <!-- <button onclick="getForms()">click this button</button> -->
+  </body>
+  <script>
+    function getForms(){
+        console.log("printed");
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        try{0
+          var request = new XMLHttpRequest()
+
+            // Open a new connection, using the GET request on the URL endpoint
+            var user = document.getElementById("user").value;
+            var pass = document.getElementById("pass").value;
+            localStorage['user']= user;
+            localStorage['pass']= pass;
+
+            request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signUp/'+ user+'/' + pass + '/', true)
+
+            request.onload = function() {
+            // Begin accessing JSON data here
+                console.log("nothin")
+                var obj = JSON.parse(this.response);
+                if(obj.Worked==="Y")
+                {
+                  window.location.replace("http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/groupsPage/?");
+                }
+                else
+                {
+                  document.getElementById("groups").innerHTML = "Username or password incorrect. Please try again.";
+                }
+                
+            }
+
+            // Send request
+            request.send()
+        }
+        catch(err){
+          console.log(err);
+        }
+    }
+  </script>
+</html>
