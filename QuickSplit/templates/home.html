@@ -12,16 +12,16 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
 <style>
 html, body {
-  margin: 0; 
+  margin: 0;
   height: 100%;
 }
- 
+
 .brand_logo_container {
   position: absolute;
   float: top;
   top:1%;
   left:5%;
- 
+
   padding: 10%;
   text-align: center;
 }
@@ -33,7 +33,7 @@ html, body {
   left:35%;
   padding: 10%;
   text-align: center;
-  
+
 }
 
 .brand_logo {
@@ -58,13 +58,37 @@ html, body {
       padding:20px;
       position:relative;
 }
+.outerrect
+{
+  position: absolute;
+  /*padding-left: 30%;
+  padding-right: 30%;
+  padding-top: 10%;
+  padding-bottom: 10%;*/
+  width: 100%;
+  height: 100%;
+  background-color:  ;
+}
+.rect
+{
+  overflow:auto;
+  height:1%;
+  left: 25%;
+  top: 25%;
+  position: relative;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color:WHITE ;
+  border-radius: 50px;
+}
 #groups{
   padding:20px;
   font-size: 50px;
   text-align: center;
 }
 
-  
+
 #centerSubmit
 {
     width: 40%;
@@ -120,8 +144,9 @@ html, body {
 <h1 class="jumbotron" id = "logoWord">QuickSplit</h1 style>
 
   <body>
+    <div class="outerrect">
+    <div class="box">
       <form id="down">
-        
         <div class="pad" id="scootdown" id="bigtext" class="form-group">
           <label  id="bigtext" for="user">Username</label>
           <input type="text" class="form-control" id="user" placeholder="Enter user">
@@ -135,15 +160,15 @@ html, body {
       </form>
       <button  id = "centerSubmit"  class="btn btn-secondary" type="button" onclick="getForms()"  style="background-color:#5B618A;" >Sign In</button>
       <div id="signUp"><p1> Don't have an account? <a href = "http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signUpPage/">Sign up</a></p1></div>
-    </body>
+    </div>
 
     <div class="big_brand_logo_container">
-    <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="big_brand_logo" alt="Logo">
+      <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="big_brand_logo" alt="Logo">
     </div>
-  <div class="brand_logo_container">
-    <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="brand_logo" alt="Logo">
+    <div class="brand_logo_container">
+      <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="brand_logo" alt="Logo">
+    </div>
   </div>
-   
   <script>
     function redirSign()
     {
@@ -167,7 +192,7 @@ html, body {
             // Begin accessing JSON data here
                 console.log("nothin")
                 var obj = JSON.parse(this.response);
-                if(obj.Worked==="Y") 
+                if(obj.Worked==="Y")
                 {
                   document.getElementById("user").style.border = "2px solid green";
                   document.getElementById("user").style.border.radius = "4px";
@@ -181,7 +206,7 @@ html, body {
                   document.getElementById("user").style.border.radius = "4px";
                   document.getElementById("pass").style.border = "2px solid red";
                 }
-                
+
             }
 
             // Send request
@@ -192,4 +217,5 @@ html, body {
         }
     }
   </script>
-</body></html>
+</body>
+</html>
