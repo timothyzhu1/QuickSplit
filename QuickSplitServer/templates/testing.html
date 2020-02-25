@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+
+<html>
+<title>testing</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head></head>
+  <body>
+    <p id="groups"></p>
+    <script>
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest()
+
+        // Open a new connection, using the GET request on the URL endpoint
+        request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getGroupNames/tpzhu/', true)
+
+        request.onload = function() {
+        // Begin accessing JSON data here
+            var obj = JSON.parse(this.response);
+            document.getElementById("groups").innerHTML = obj.groupNames;
+        }
+
+        // Send request
+        request.send()
+    </script>
+  </body>
+</html>
+
