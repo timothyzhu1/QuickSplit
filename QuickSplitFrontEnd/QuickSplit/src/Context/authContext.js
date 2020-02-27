@@ -6,8 +6,8 @@ const authReducer = {state, action} => {
     case signin:
       return {...state, email: action.payload.email, password: action.payload.password}
     case signup:
-      return {....state, email: action.payload.email, password: action.payload.password}
-    default:
+      return {...state, email: action.payload.email, password: action.payload.password}
+    default:h
       return state
   }
 }
