@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext} from 'react'
 import { View, StyleSheet, TextInput, Button, TouchableOpacity} from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as authContext} from '../Context/authContext'
