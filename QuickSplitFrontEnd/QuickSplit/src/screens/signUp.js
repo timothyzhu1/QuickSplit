@@ -4,6 +4,7 @@ import { View, StyleSheet, TextInput, Button, TouchableOpacity} from 'react-nati
 import {Context as authContext} from '../Context/authContext'
 import { ApplicationProvider, Layout, Input, Text} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
+import NavLink from '../components/NavLink'
 
 const signUp = ({navigation}) => {
   const {state, signup} = useContext(authContext)
@@ -36,9 +37,10 @@ const signUp = ({navigation}) => {
             />
             <Text style={styles.invalid}>{state.invalid}</Text>
         </Layout>
-        <TouchableOpacity onPress = {() => navigation.navigate('signin')}>
-          <Text>Already have an account? Sign in here</Text>
-        </TouchableOpacity>
+        <NavLink
+            routeName="signin"
+            text="Have an account? Sign in"
+          />
     </ApplicationProvider>
 )
 }

@@ -1,6 +1,8 @@
 import context from './contexts'
 import { AsyncStorage} from 'react-native';
 import api from '../api/qsApi'
+import {navigate} from NavLink from '../components/NavLink'
+import {NavigationEvents} from 'react-navigation'
 
 const authReducer = (state, action) => {
   switch(action.type){
@@ -12,6 +14,18 @@ const authReducer = (state, action) => {
       return {...state, invalid: action.payload}
     default:
       return state
+  }
+}
+
+const trySignin = dispatch => async () => {
+  const user = await AsyncStorage.getItem('user');
+  const pass = await AsyncStorage.getItem('pass');
+  if(user && pass){
+    dispatch({type: 'signin', payload: user, pass})
+    navigate('groupList')
+  }
+  else{
+    navigate('login');
   }
 }
 
@@ -63,6 +77,6 @@ const signin = (dispatch) => {
 
 export const {Provider, Context} = context(
   authReducer,
-  {signin, signup},
+  {signin, signup, trySignin},
    { user: null, pass: null, invalid: ''}
 )

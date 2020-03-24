@@ -1,14 +1,19 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as authContext} from '../Context/authContext'
+import {NavigationEvents} from 'react-navigation'
 import { ApplicationProvider, Layout, Input, Text} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
+import NavLink from '../components/NavLink'
 
 const signIn = ({navigation}) => {
-  const {state, signin} = useContext(authContext)
+  const {state, signin, trySignin} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+  useEffect(() => {
+    trySignin()
+  }, [])
   return (
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
       <Layout>
@@ -36,9 +41,10 @@ const signIn = ({navigation}) => {
           <Text style={styles.invalid}>{state.invalid}</Text>
           <Text style={styles.invalid}>{state.username}</Text>
         </Layout>
-        <TouchableOpacity onPress = {() => navigation.navigate('signup')}>
-          <Text>Dont have an account? Sign In here</Text>
-        </TouchableOpacity>
+        <NavLink
+            routeName="signup"
+            text="Dont have an account? Sign up"
+          />
     </ApplicationProvider>
 )
 }
