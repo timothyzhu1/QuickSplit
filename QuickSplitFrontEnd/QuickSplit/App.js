@@ -7,6 +7,9 @@ import signin from './src/screens/signIn'
 import signup from './src/screens/signUp'
 import listofGroups from './src/screens/listofGroups'
 import {Provider as AuthProvider} from './src/Context/authContext'
+import {Provider as GroupProvider} from './src/Context/groupList'
+import {setNavigator} from './src/navigationRef'
+import signout from './src/screens/signout'
 
 const mainNavigator = createSwitchNavigator({
   login: createStackNavigator({
@@ -14,15 +17,19 @@ const mainNavigator = createSwitchNavigator({
     signup: signup
   }),
   main: createBottomTabNavigator({
-    groupList: listofGroups
+    groupList: listofGroups,
+    Account: signout
   })
 })
 
 const App = createAppContainer(mainNavigator);
 
 export default () => {
-  return( <AuthProvider>
-    <App />
-  </AuthProvider>
+  return(
+    <GroupProvider>
+      <AuthProvider>
+      <App ref={(navigator) => { setNavigator(navigator)}}/>
+    </AuthProvider>
+  </GroupProvider>
 );
 }

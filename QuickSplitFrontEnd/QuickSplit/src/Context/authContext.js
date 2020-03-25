@@ -1,17 +1,19 @@
 import context from './contexts'
 import { AsyncStorage} from 'react-native';
 import api from '../api/qsApi'
-import {navigate} from NavLink from '../components/NavLink'
 import {NavigationEvents} from 'react-navigation'
+import {navigate} from '../navigationRef'
 
 const authReducer = (state, action) => {
   switch(action.type){
-    case signin:
-      return {errorMessage: '', email: action.payload.user, password: action.payload.pass}
-    case signup:
-      return {errorMessage: '', email: action.payload.user, password: action.payload.pass}
+    case 'signin':
+      return {errorMessage: '', user: action.payload.user, pass: action.payload.pass}
+    case 'signup':
+      return {errorMessage: '', user: action.payload.user, pass: action.payload.pass}
     case 'invalid':
       return {...state, invalid: action.payload}
+    case 'signout':
+      return {user:null, pass:null}
     default:
       return state
   }
@@ -37,14 +39,10 @@ const signin = (dispatch) => {
         dispatch({type: 'invalid', payload: 'Incorrect Credentials'})
       }
       else{
-        try{
           await AsyncStorage.setItem('user', user);
           await AsyncStorage.setItem('pass', pass);
-        }
-        catch(err){
-          console.log(err)
-        }
-        dispatch({type: 'signup', payload: user, pass})
+          dispatch({type: 'signin', payload: user, pass})
+          navigate('groupList')
       }
 
     }
@@ -63,9 +61,10 @@ const signin = (dispatch) => {
           dispatch({type: 'invalid', payload: 'The username or password has already been taken'})
         }
         else{
-          await AsyncStorage.setItem('username', user);
-          await AsyncStorage.setItem('password', pass);
+          await AsyncStorage.setItem('user', user);
+          await AsyncStorage.setItem('pass', pass);
           dispatch({type: 'signup', payload: user, pass})
+          navigate('groupList')
         }
       }
       catch(err){
@@ -74,9 +73,16 @@ const signin = (dispatch) => {
       }
     }
   }
+  const signout = (dispatch) => async () => {
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem('pass');
+    dispatch({ type: 'signout'});
+    navigate('signin')
+
+  }
 
 export const {Provider, Context} = context(
   authReducer,
-  {signin, signup, trySignin},
+  {signin, signup, signout, trySignin},
    { user: null, pass: null, invalid: ''}
 )
