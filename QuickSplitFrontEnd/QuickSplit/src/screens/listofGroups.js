@@ -7,6 +7,7 @@ import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import {NavigationEvents} from 'react-navigation'
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
+import {Constants} from 'expo'
 const listofGroups = ({navigation}) => {
   const {state, groupNames} = useContext(groupContext)
   const [groups, setGroups] = useState(null)
@@ -16,6 +17,12 @@ const listofGroups = ({navigation}) => {
   return (
     <View>
       <Text style={styles.text}>List of Groups: </Text>
+      <FlatList
+        data={Object.keys(state.groupNames)}
+        renderItem = {({item}) =>
+        <Button>{state.groupNames[item]}</Button>
+      }
+        />
 
     </View>
   )
