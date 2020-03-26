@@ -1,11 +1,11 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
-import {Context as authContext} from '../Context/authContext'
-import {NavigationEvents} from 'react-navigation'
+import {Context as authContext} from '../Context/authContext';
+import {NavigationEvents} from 'react-navigation';
 import { ApplicationProvider, Layout, Input, Text} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
-import NavLink from '../components/NavLink'
+import NavLink from '../components/NavLink';
 
 const signIn = ({navigation}) => {
   const {state, signin, trySignin} = useContext(authContext)
@@ -24,16 +24,16 @@ const signIn = ({navigation}) => {
         value= {user}
         onChangeText={(user) => setUser(user)}
         />
-      <Text style={styles.text}>
+        <Text style={styles.text}>
             Enter Password:
-          </Text>
-          <Input
-            style={styles.input}
-            placeholder= "Password"
-            secureTextEntry={true}
-            value = {pass}
-            onChangeText={(pass) => setPass(pass)}
-            />
+        </Text>
+      <Input
+        style={styles.input}
+        placeholder= "Password"
+        secureTextEntry={true}
+        value = {pass}
+        onChangeText={(pass) => setPass(pass)}
+        />
           <Button
             title="Submit"
             onPress={()=> signin({user, pass})}
@@ -46,7 +46,7 @@ const signIn = ({navigation}) => {
             text="Dont have an account? Sign up"
           />
     </ApplicationProvider>
-)
+  )
 }
 
 const styles = StyleSheet.create({
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     marginLeft: 5
   }
 })
-export default signIn
+export default signIn;
