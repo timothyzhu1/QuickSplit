@@ -1,24 +1,24 @@
 import React, {useState, useContext} from 'react'
 import { View, StyleSheet, TextInput, Button, TouchableOpacity, Text} from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
-import {Context as groupContext} from '../Context/groupContext'
+import {Context as itemContext} from '../Context/itemContext'
 import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
 
-const addGroup = ({navigation}) => {
-  const [group, setGroup] = useState("");
-  const {state, addGroup} = useContext(groupContext)
+const addItem = ({navigation}) => {
+  const [item, setItem] = useState("");
+  const {state, addItem} = useContext(itemContext)
   return (
   <View>
-    <Text>Please enter the group's code: </Text>
+    <Text>Please enter the item name: </Text>
     <TextInput
       style={styles.input}
-      onChangeText={(group) => setGroup(group)}
+      onChangeText={(item) => setItem(item)}
       >
     </TextInput>
     <TouchableOpacity
-      onPress={() => addGroup({group})}
+      onPress={() => addItem({item})}
       >
       <Text>Submit</Text>
     </TouchableOpacity>
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
     height: 30
   }
 })
-export default addGroup
+export default addItem

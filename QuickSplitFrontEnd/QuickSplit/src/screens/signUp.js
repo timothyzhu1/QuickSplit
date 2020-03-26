@@ -10,7 +10,6 @@ const signUp = ({navigation}) => {
   const {state, signup} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-      console.log(state.invalid)
   return (
     <ApplicationProvider mapping={mapping} theme={lightTheme}>
       <Layout>

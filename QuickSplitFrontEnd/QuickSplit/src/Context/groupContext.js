@@ -10,6 +10,8 @@ const groupReducer = (state, action) => {
   switch(action.type){
     case 'groupNames':
       return {...state, groupNames: action.payload}
+      case 'noAdd':
+        return {...state, noAdd: action.payload}
     default:
       return state
   }
@@ -28,14 +30,31 @@ const groupNames = (dispatch) => async() => {
 }
 
 const addGroup = (dispatch) => {
-  return async({groupCode}) => {
+  return async({group}) => {
     try{
-      const response = await api.get(`/addGroup/${email}/${groupCode}/`);
-      console.log(response.data);
+      const user = await AsyncStorage.getItem('user')
+      console.log(user, group)
+      const response = await api.get(`/joinGroup/${user}/${group}/`)
+      if(response.data.Worked == 'N'){
+        dispatch({type:'noAdd', payload: 'You are already in that group'})
+        console.log('here')
+      }
+      else if(response.data.Worked == 'Y'){
+        console.log('1')
+        navigate('groupList')
+      }
+      else if(response.data.Worked == 'D'){
+        console.log('2')
+        dispatch({type:'noAdd', payload: 'This group does not exist'})
+      }
+      else {
+        console.log('3')
+        dispatch({type:'noAdd', payload: 'There was an error adding this group'})
+      }
 
     }
     catch(err){
-      console.log(err);
+      console.log(err)
     }
   }
 }
@@ -53,6 +72,6 @@ const addGroup = (dispatch) => {
 
 export const { Provider, Context} = context(
   groupReducer,
-  {groupNames},
+  {groupNames, addGroup, deleteGroup},
   { groupCode:null, groupNames:[]}
 )

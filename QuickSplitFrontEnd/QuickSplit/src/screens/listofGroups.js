@@ -2,7 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import { View, StyleSheet, TextInput, Button, Text, FlatList, TouchableOpacity } from 'react-native';
 import { ListItem } from 'react-native-elements'
 // import RegisterComponent from '../components/RegisterComponent'
-import {Context as groupContext} from '../Context/groupList'
+import {Context as groupContext} from '../Context/groupContext'
 import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import {NavigationEvents} from 'react-navigation'
 import { mapping, light as lightTheme } from '@eva-design/eva';

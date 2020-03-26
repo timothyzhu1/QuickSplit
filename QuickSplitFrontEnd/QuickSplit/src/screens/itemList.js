@@ -6,6 +6,8 @@ import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
 import { AsyncStorage} from 'react-native';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+import {navigate} from '../navigationRef'
 
 const itemLists = ({navigation}) => {
   const {state, itemList, retMembers} = useContext(itemContext)
@@ -17,6 +19,11 @@ const itemLists = ({navigation}) => {
   }, [])
   return (
     <View>
+      <TouchableOpacity
+          onPress={() => {navigate('addItem')}}
+                >
+        <Entypo name="circle-with-plus" size={32} color="black" />
+      </TouchableOpacity>
     <Text>The Group Code for this group is: </Text>
     <Text>{state.groupID}</Text>
     <Text>These r the following items u have</Text>
