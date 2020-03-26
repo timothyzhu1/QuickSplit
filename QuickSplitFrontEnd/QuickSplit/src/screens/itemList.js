@@ -11,40 +11,48 @@ import {navigate} from '../navigationRef'
 
 const itemLists = ({navigation}) => {
   const {state, itemList, retMembers} = useContext(itemContext)
-  const groupName = navigation.state.params
+  const groupName = navigation.state.params;
+
   AsyncStorage.setItem('groupName', groupName);
   useEffect(() => {
-    itemList()
-    retMembers()
-  }, [])
+    itemList();
+    retMembers();
+  }, []);
+
   return (
     <View>
-      <TouchableOpacity
-          onPress={() => {navigate('addItem')}}
-                >
-        <Entypo name="circle-with-plus" size={32} color="black" />
-      </TouchableOpacity>
-    <Text>The Group Code for this group is: </Text>
-    <Text>{state.groupID}</Text>
-    <Text>These r the following items u have</Text>
-    <FlatList
-      data={Object.keys(state.items)}
-      renderItem = {({item}) =>
-        <Text>{state.items[item]}</Text>
-    }
-    keyExtractor={(item, index) => item.index }
-      />
-      <Text>These r ur members</Text>
-      <FlatList
-        data={Object.keys(state.members)}
-        renderItem = {({item}) =>
-          <Text>{state.members[item]}</Text>
-      }
-      keyExtractor={(item, index) => item.index }
+
+        <Text>The Group Code for this group is: </Text>
+        <Text>{state.groupID}</Text>
+        <Text>These r the following items u have</Text>
+        <FlatList
+            data={Object.keys(state.items)}
+            renderItem = {({item}) =>
+                <Text>{state.items[item]}</Text>
+            }
+            keyExtractor={(item, index) => item.index }
+        />
+            <Text>These r ur members</Text>
+        <FlatList
+            data={Object.keys(state.members)}
+            renderItem = {({item}) =>
+              <Text>{state.members[item]}</Text>
+            }
+            keyExtractor={(item, index) => item.index }
         />
     </View>
-)
+  );
 }
+
+itemLists.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Items</Text>,
+        headerRight:
+            <TouchableOpacity onPress={() => {navigate('addItem')}}>
+                <Entypo name="circle-with-plus" size={32} color="black" />
+            </TouchableOpacity>,
+    };
+};
 
 const styles = StyleSheet.create({
   container: {

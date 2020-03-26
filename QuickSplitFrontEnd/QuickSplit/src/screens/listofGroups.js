@@ -17,14 +17,11 @@ const listofGroups = ({navigation}) => {
   const [groups, setGroups] = useState(null)
   useEffect(() => {
     groupNames();
-  },[])
+  },[]);
+
   return (
     <View>
-      <TouchableOpacity
-          onPress={() => {navigate('addGroup')}}
-                >
-        <Entypo name="circle-with-plus" size={32} color="black" />
-      </TouchableOpacity>
+
       <Text style={styles.text}>List of Groups: </Text>
       <FlatList
         data={Object.keys(state.groupNames)}
@@ -40,8 +37,19 @@ const listofGroups = ({navigation}) => {
         />
 
     </View>
-  )
-}
+  );
+};
+
+listofGroups.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Groups</Text>,
+        headerRight:
+            <TouchableOpacity onPress={() => {navigate('addGroup')}} style={{marginRight: 10}}>
+              <Entypo name="circle-with-plus" size={32} color="black" />
+            </TouchableOpacity>
+    };
+};
+
 
 const styles = StyleSheet.create({
   text: {
@@ -53,4 +61,4 @@ const styles = StyleSheet.create({
     fontSize: 25
   }
 })
-export default listofGroups
+export default listofGroups;
