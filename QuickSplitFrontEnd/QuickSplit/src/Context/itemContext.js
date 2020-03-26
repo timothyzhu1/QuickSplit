@@ -12,6 +12,8 @@ const itemReducer = (state, action) => {
       return {...state, items: action.payload}
     case 'groupID':
       return {...state, groupID: action.payload}
+    case 'retMembers':
+      return {...state, members: action.payload}
     default:
       return state
   }
@@ -35,8 +37,21 @@ const itemList = (dispatch) => {
 }
 }
 
+const retMembers = (dispatch) => {
+  return async() => {
+    try{
+      const groupID = await AsyncStorage.getItem('groupID');
+      const response = await api.get(`/getGroupMembers/${groupID}/`);
+      dispatch({type:'retMembers', payload: response.data.groupMembers})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+}
+
 export const { Provider, Context} = context(
   itemReducer,
-  {itemList},
-  { groupCode:null, items:[]}
+  {itemList, retMembers},
+  { groupCode:null, items:[], members:[]}
 )

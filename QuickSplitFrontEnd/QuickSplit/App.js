@@ -12,6 +12,7 @@ import {Provider as ItemProvider} from './src/Context/itemContext'
 import {setNavigator} from './src/navigationRef'
 import signout from './src/screens/signout'
 import itemLists from './src/screens/itemList'
+import addGroup from './src/screens/addGroup'
 
 const mainNavigator = createSwitchNavigator({
   login: createStackNavigator({
@@ -21,7 +22,8 @@ const mainNavigator = createSwitchNavigator({
   main: createBottomTabNavigator({
     groupListMain: createStackNavigator({
       groupList: listofGroups,
-      itemLists: itemLists
+      itemLists: itemLists,
+      addGroup: addGroup
     }),
     Account: signout
   })

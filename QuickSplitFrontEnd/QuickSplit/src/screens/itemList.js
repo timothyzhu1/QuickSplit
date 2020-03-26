@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react'
-import { View, StyleSheet, TextInput, Button, TouchableOpacity, Text} from 'react-native';
+import { View, StyleSheet, TextInput, Button, TouchableOpacity, Text, FlatList} from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as itemContext} from '../Context/itemContext'
 import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
@@ -8,17 +8,33 @@ import NavLink from '../components/NavLink'
 import { AsyncStorage} from 'react-native';
 
 const itemLists = ({navigation}) => {
-  const {state, itemList} = useContext(itemContext)
+  const {state, itemList, retMembers} = useContext(itemContext)
   const groupName = navigation.state.params
   AsyncStorage.setItem('groupName', groupName);
   useEffect(() => {
     itemList()
+    retMembers()
   }, [])
-  console.log(state)
   return (
     <View>
+    <Text>The Group Code for this group is: </Text>
+    <Text>{state.groupID}</Text>
     <Text>These r the following items u have</Text>
-    <Text>{state.items}</Text>
+    <FlatList
+      data={Object.keys(state.items)}
+      renderItem = {({item}) =>
+        <Text>{state.items[item]}</Text>
+    }
+    keyExtractor={(item, index) => item.index }
+      />
+      <Text>These r ur members</Text>
+      <FlatList
+        data={Object.keys(state.members)}
+        renderItem = {({item}) =>
+          <Text>{state.members[item]}</Text>
+      }
+      keyExtractor={(item, index) => item.index }
+        />
     </View>
 )
 }

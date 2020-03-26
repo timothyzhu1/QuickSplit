@@ -10,6 +10,8 @@ import NavLink from '../components/NavLink'
 import {Constants} from 'expo'
 import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+
 const listofGroups = ({navigation}) => {
   const {state, groupNames} = useContext(groupContext)
   const [groups, setGroups] = useState(null)
@@ -18,6 +20,11 @@ const listofGroups = ({navigation}) => {
   },[])
   return (
     <View>
+      <TouchableOpacity
+          onPress={() => {navigate('addGroup')}}
+                >
+        <Entypo name="circle-with-plus" size={32} color="black" />
+      </TouchableOpacity>
       <Text style={styles.text}>List of Groups: </Text>
       <FlatList
         data={Object.keys(state.groupNames)}
