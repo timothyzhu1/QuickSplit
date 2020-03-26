@@ -14,6 +14,8 @@ const itemReducer = (state, action) => {
       return {...state, groupID: action.payload}
     case 'retMembers':
       return {...state, members: action.payload}
+    case 'noAdd':
+      return {...state, noAdd: action.payload}
     default:
       return state
   }
@@ -50,8 +52,34 @@ const retMembers = (dispatch) => {
   }
 }
 
+const addGroup = (dispatch) => {
+  return async({group}) => {
+    try{
+      const user = await AsyncStorage.getItem('user')
+      console.log(user, group)
+      const response = await api.get(`/joinGroup/${user}/${group}/`)
+      if(response.data.Worked == 'N'){
+        dispatch({type:'noAdd', payload: 'You are already in that group'})
+      }
+      else if(response.data.Worked == 'Y'){
+        navigate('groupList')
+      }
+      else if(response.data.Worked == 'D'){
+        dispatch({type:'noAdd', payload: 'This group does not exist'})
+      }
+      else {
+        dispatch({type:'noAdd', payload: 'There was an error adding this group'})
+      }
+
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+}
+
 export const { Provider, Context} = context(
   itemReducer,
-  {itemList, retMembers},
-  { groupCode:null, items:[], members:[]}
+  {itemList, retMembers, addGroup},
+  { groupID:null, items:[], members:[], noAdd:''}
 )
