@@ -6,11 +6,15 @@ import {withNavigation} from 'react-navigation'
 const NavLink = ({navigation, text, routeName}) => {
   return (
     <TouchableOpacity onPress = {() => navigation.navigate(routeName)}>
-      <Text>{text}</Text>
+      <Text style = {styles.container}>{text}</Text>
     </TouchableOpacity>
   )
 
 }
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        fontSize: 20
+    }
+})
 
 export default withNavigation(NavLink)

@@ -50,7 +50,7 @@ itemLists.navigationOptions = ({navigation}) => {
         headerRight:
             <TouchableOpacity onPress={() => {navigate('addItem')}}>
                 <Entypo name="circle-with-plus" size={32} color="black" />
-            </TouchableOpacity>,
+            </TouchableOpacity>
     };
 };
 
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
     marginLeft: 5
   }
 })
-export default itemLists
+export default itemLists;

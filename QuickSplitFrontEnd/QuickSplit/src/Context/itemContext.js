@@ -19,7 +19,7 @@ const itemReducer = (state, action) => {
     default:
       return state
   }
-}
+};
 
 const itemList = (dispatch) => {
   return async() => {
@@ -36,7 +36,7 @@ const itemList = (dispatch) => {
       console.log(err)
 
   }
-}
+};
 }
 
 const retMembers = (dispatch) => {
@@ -57,13 +57,13 @@ const addItem = (dispatch) => {
     try{
       const groupID = await AsyncStorage.getItem('groupID');
       const user = await AsyncStorage.getItem('user');
-      const response = await api.get(`/addItem/${user}/1002/${item}`)
+      console.log(100+groupID)
+      const response = await api.get(`/addItem/${user}/${100+groupID}/${item}`)
       console.log(response.data)
       if(response.data.Worked == 'N'){
         dispatch({type:'valid', payload: 'item not sucesffully added'})
       }
       else{
-        console.log('here')
         navigate('itemLists')
       }
     }

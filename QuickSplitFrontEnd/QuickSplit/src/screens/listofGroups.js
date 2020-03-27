@@ -13,10 +13,11 @@ import { AsyncStorage} from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 
 const listofGroups = ({navigation}) => {
-  const {state, groupNames} = useContext(groupContext)
-  const [groups, setGroups] = useState(null)
+  const {state, getgroupNames} = useContext(groupContext);
+  const [groups, setGroups] = useState(null);
+
   useEffect(() => {
-    groupNames();
+    getgroupNames();
   },[]);
 
   return (
@@ -25,14 +26,17 @@ const listofGroups = ({navigation}) => {
       <Text style={styles.text}>List of Groups: </Text>
       <FlatList
         data={Object.keys(state.groupNames)}
-        renderItem = {({item}) =>
-        <TouchableOpacity
-          style={styles.list}
-          onPress={
-            () => {navigate('itemLists', state.groupNames[item])}}>
-          <Text>{state.groupNames[item]}</Text>
-        </TouchableOpacity>
-      }
+        renderItem = {({item}) => {
+            <TouchableOpacity
+              style={styles.list}
+              onPress={
+                () => {navigate('itemLists', state.groupNames[item])}}>
+            <Text>{state.groupNames[item]}</Text>
+            <View>
+
+            </View>
+            </TouchableOpacity>
+    }}
       keyExtractor={(item, index) => item.index }
         />
 

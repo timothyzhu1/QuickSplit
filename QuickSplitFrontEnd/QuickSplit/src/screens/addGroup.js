@@ -6,9 +6,9 @@ import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
 
-const addGroup = ({navigation}) => {
+const addGroup = ({navigation}) => { //user will option to join existing group or create a new group
   const [group, setGroup] = useState("");
-  const {state, addGroup} = useContext(groupContext)
+  const {state, joinGroup} = useContext(groupContext);
   return (
   <View>
     <Text>Please enter the group's code: </Text>
@@ -18,7 +18,7 @@ const addGroup = ({navigation}) => {
       >
     </TextInput>
     <TouchableOpacity
-      onPress={() => addGroup({group})}
+      onPress={() => joinGroup({group})}
       >
       <Text>Submit</Text>
     </TouchableOpacity>

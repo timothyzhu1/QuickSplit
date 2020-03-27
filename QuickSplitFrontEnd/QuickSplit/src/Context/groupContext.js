@@ -17,27 +17,27 @@ const groupReducer = (state, action) => {
   }
 }
 
-const groupNames = (dispatch) => async() => {
+const getgroupNames = (dispatch) => async() => { //retrieves the members of a certain group
     try{
       const user = await AsyncStorage.getItem('user');
       const response = await api.get(`/getGroupNames/${user}`);
+      console.log(response.data);
       dispatch({type: 'groupNames', payload: response.data.groupNames})
     }
     catch(err){
-      console.log(err)
-
+      console.log(err);
   }
 }
 
-const addGroup = (dispatch) => {
+const joinGroup = (dispatch) => { //post reuqest for joining a group given a code
   return async({group}) => {
     try{
-      const user = await AsyncStorage.getItem('user')
-      console.log(user, group)
+      const user = await AsyncStorage.getItem('user');
+      console.log(user, group);
       const response = await api.get(`/joinGroup/${user}/${group}/`)
       if(response.data.Worked == 'N'){
         dispatch({type:'noAdd', payload: 'You are already in that group'})
-        console.log('here')
+        console.log('here');
       }
       else if(response.data.Worked == 'Y'){
         console.log('1')
@@ -56,15 +56,27 @@ const addGroup = (dispatch) => {
     catch(err){
       console.log(err)
     }
-  }
+};
+}
+
+const createGroup = (dispatch) => { //
+    return async ({newName}) => {
+        try{
+            const user = await AsyncStorage.getItem('user');
+            const response = await api.post(`/createGroup/${user}/${newName}/`);
+            console.log(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }
 
   const deleteGroup = (dispatch) => {
-    return async ({email, password}) => {
+    return async ({user, pass}) => {
       try{
-        const response = await api.get(`/deleteGroup/${email}/${groupCode}/`)
+        const response = await api.get(`/deleteGroup/${user}/${groupCode}/`)
       }
-      catch(err){
+      catch(err){ //still need to edit
         console.log(err);
       }
     }
@@ -72,6 +84,6 @@ const addGroup = (dispatch) => {
 
 export const { Provider, Context} = context(
   groupReducer,
-  {groupNames, addGroup, deleteGroup},
-  { groupCode:null, groupNames:[]}
+  {getgroupNames, joinGroup, deleteGroup, createGroup},
+  {groupNames:[]}
 )

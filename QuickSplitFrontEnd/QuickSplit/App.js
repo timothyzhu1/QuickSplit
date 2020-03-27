@@ -17,7 +17,13 @@ import addItem from './src/screens/addItem'
 
 const mainNavigator = createSwitchNavigator({
   login: createStackNavigator({
-    signin: signin,
+    signin: {
+        screen: signin,
+        navigationOptions: {
+            title: 'SignIn',
+            headerShown: false
+        },
+    },
     signup: signup
   }),
   main: createBottomTabNavigator({
