@@ -77,7 +77,7 @@ const signin = (dispatch) => {
     await AsyncStorage.removeItem('user');
     await AsyncStorage.removeItem('pass');
     dispatch({ type: 'signout'});
-    navigate('signin')
+    navigate('signin');
 
   }
 

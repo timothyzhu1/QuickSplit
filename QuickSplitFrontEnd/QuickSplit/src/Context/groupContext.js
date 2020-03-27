@@ -21,7 +21,7 @@ const getgroupNames = (dispatch) => async() => { //retrieves the members of a ce
     try{
       const user = await AsyncStorage.getItem('user');
       const response = await api.get(`/getGroupNames/${user}`);
-      console.log(response.data);
+      //console.log(response.data);
       dispatch({type: 'groupNames', payload: response.data.groupNames})
     }
     catch(err){

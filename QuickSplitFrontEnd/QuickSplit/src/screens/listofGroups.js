@@ -18,26 +18,22 @@ const listofGroups = ({navigation}) => {
 
   useEffect(() => {
     getgroupNames();
-  },[]);
+},[]);
+//<NavigationEvents onWillFocus={getgroupNames}/>
 
   return (
-    <View>
-
-      <Text style={styles.text}>List of Groups: </Text>
-      <FlatList
-        data={Object.keys(state.groupNames)}
-        renderItem = {({item}) => {
-            <TouchableOpacity
-              style={styles.list}
-              onPress={
-                () => {navigate('itemLists', state.groupNames[item])}}>
-            <Text>{state.groupNames[item]}</Text>
-            <View>
-
-            </View>
-            </TouchableOpacity>
-    }}
-      keyExtractor={(item, index) => item.index }
+    <View style={{flex: 1}}>
+        <Text style={styles.text}>List of Groups: </Text>
+        <FlatList
+            data={Object.keys(state.groupNames)}
+            renderItem = {({item}) => {
+                    console.log(state.groupNames[item]);
+                    <TouchableOpacity
+                        onPress={() => {navigate('itemLists', state.groupNames[item])}}>
+                        <Text style={styles.list}>{state.groupNames[item]}</Text>
+                    </TouchableOpacity>
+            }}
+            keyExtractor={(item, index) => item.index }
         />
 
     </View>
@@ -59,10 +55,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     textAlign: 'center',
-    paddingTop: 100
+    //paddingTop: 100
   },
   list: {
-    fontSize: 25
+    fontSize: 25,
+    color: 'rgba(255, 87, 51, 0.9)',
+    marginVertical: 10
+
   }
 })
 export default listofGroups;
