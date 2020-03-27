@@ -13,32 +13,35 @@ import { AsyncStorage} from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 
 const listofGroups = ({navigation}) => {
-  const {state, getgroupNames} = useContext(groupContext);
-  const [groups, setGroups] = useState(null);
+    const {state, getgroupNames} = useContext(groupContext);
+    const [groups, setGroups] = useState(null);
 
-  useEffect(() => {
-    getgroupNames();
-},[]);
+    useEffect(() => {
+        getgroupNames();
+    },[]);
 //<NavigationEvents onWillFocus={getgroupNames}/>
 
-  return (
-    <View style={{flex: 1}}>
-        <Text style={styles.text}>List of Groups: </Text>
-        <FlatList
-            data={Object.keys(state.groupNames)}
-            renderItem = {({item}) => {
-                    console.log(state.groupNames[item]);
+    return (
+        <View>
+            <Text style={styles.text}>List of Groups: </Text>
+            <FlatList
+                data={Object.keys(state.groupNames)}
+                renderItem = {({item}) =>
                     <TouchableOpacity
-                        onPress={() => {navigate('itemLists', state.groupNames[item])}}>
-                        <Text style={styles.list}>{state.groupNames[item]}</Text>
+                        style={styles.list}
+                        onPress={
+                            () => {navigate('itemLists', state.groupNames[item])}}>
+                        <Text>{state.groupNames[item]}</Text>
                     </TouchableOpacity>
-            }}
-            keyExtractor={(item, index) => item.index }
-        />
+                }
+                keyExtractor={(item, index) => item.index }
+            />
 
-    </View>
-  );
+        </View>
+    );
 };
+
+
 
 listofGroups.navigationOptions = ({navigation}) => {
     return {

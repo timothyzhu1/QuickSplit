@@ -19,6 +19,16 @@ const itemLists = ({navigation}) => {
     retMembers();
   }, []);
 
+  itemLists.navigationOptions = ({navigation}) => {
+      return {
+          headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Items</Text>,
+          headerRight:
+              <TouchableOpacity onPress={() => {navigate('addItem')}}>
+                  <Entypo name="circle-with-plus" size={32} color="black" />
+              </TouchableOpacity>
+      };
+  };
+  
   return (
     <View>
 
@@ -44,15 +54,7 @@ const itemLists = ({navigation}) => {
   );
 }
 
-itemLists.navigationOptions = ({navigation}) => {
-    return {
-        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Items</Text>,
-        headerRight:
-            <TouchableOpacity onPress={() => {navigate('addItem')}}>
-                <Entypo name="circle-with-plus" size={32} color="black" />
-            </TouchableOpacity>
-    };
-};
+
 
 const styles = StyleSheet.create({
   container: {
