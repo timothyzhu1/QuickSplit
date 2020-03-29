@@ -17,11 +17,6 @@ const listofGroups = ({navigation}) => {
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
 
-    useEffect(() => {
-        getgroupNames();
-
-    },[]);
-
     listofGroups.navigationOptions = ({navigation}) => {
         return {
             headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Groups</Text>,
@@ -31,7 +26,10 @@ const listofGroups = ({navigation}) => {
                 </TouchableOpacity>
         };
     };
+    useEffect(() => {
+        getgroupNames();
 
+    },[]);
 
     return (
         <View>
