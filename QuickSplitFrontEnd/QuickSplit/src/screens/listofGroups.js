@@ -28,7 +28,7 @@ const listofGroups = ({navigation}) => {
     },[]);
 
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.container}>
             <FlatList
                 style = {{flex: 1}}
                 data={Object.keys(state.groupNames)}
@@ -84,6 +84,10 @@ listofGroups.navigationOptions = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
+    container : {
+        flex: 1,
+        backgroundColor: 'rgb(246,248,249)',
+    },
   text: {
     fontSize: 25,
     textAlign: 'center',
@@ -93,17 +97,19 @@ const styles = StyleSheet.create({
   list: {
     fontSize: 25,
     color: 'rgba(255, 87, 51, 0.9)',
-    marginVertical: 6,
+    justifyContent: 'space-between',
+    marginVertical: 8,
+    marginHorizontal : 10,
     elevation: 4,
-    borderRadius: 6,
+    borderRadius: 10,
+    borderWidth: 1,
     backgroundColor: '#fff',
     shadowOffset: {
-        width: 1,
-        height: 1
+        height: 5
     },
+    shadowColor: 'gray',
     shadowRadius: 2,
-    marginHorizontal : 15,
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.6,
 },
 modalView: {
   margin: 70,
