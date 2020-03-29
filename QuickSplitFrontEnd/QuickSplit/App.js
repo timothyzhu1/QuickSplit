@@ -14,8 +14,10 @@ import signout from './src/screens/signout'
 import itemLists from './src/screens/itemList'
 import addGroup from './src/screens/addGroup'
 import addItem from './src/screens/addItem'
+import ResolveAuthScreen from './src/screens/resolveAuth.js';
 
 const mainNavigator = createSwitchNavigator({
+    ResolveAuth: ResolveAuthScreen,
   login: createStackNavigator({
     signin: {
         screen: signin,
@@ -35,7 +37,9 @@ const mainNavigator = createSwitchNavigator({
     }),
     Account: signout
   })
-})
+},
+    {initialRouteName: 'ResolveAuth',
+});
 
 const App = createAppContainer(mainNavigator);
 

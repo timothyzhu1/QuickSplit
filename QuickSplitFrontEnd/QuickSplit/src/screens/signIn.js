@@ -13,7 +13,7 @@ const signIn = ({navigation}) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   useEffect(() => {
-    trySignin()
+    //trySignin()
   }, [])
   return (
         <ApplicationProvider mapping={mapping} theme={lightTheme}>
