@@ -12,20 +12,16 @@ import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 
+
+let activeGlobal, setActiveGlobal;
+
 const listofGroups = ({navigation}) => {
     const {state, getgroupNames} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
+    activeGlobal = active;
+    setActiveGlobal = setActive;
 
-    listofGroups.navigationOptions = ({navigation}) => {
-        return {
-            headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Groups</Text>,
-            headerRight:
-                <TouchableOpacity onPress={() => {navigate('addGroup')}} style={{marginRight: 10}}>
-                  <Entypo name="circle-with-plus" size={32} color="black" />
-                </TouchableOpacity>
-        };
-    };
     useEffect(() => {
         getgroupNames();
 
@@ -73,6 +69,17 @@ const listofGroups = ({navigation}) => {
     );
 };
 
+listofGroups.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Groups</Text>,
+        headerRight:
+            <TouchableOpacity
+                onPress={() => {setActiveGlobal(!activeGlobal)}}
+                style={{marginRight: 10}}>
+                <Entypo name="circle-with-plus" size={32} color="black" />
+            </TouchableOpacity>
+    };
+};
 
 
 
