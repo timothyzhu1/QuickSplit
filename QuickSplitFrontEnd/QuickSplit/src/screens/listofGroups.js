@@ -32,9 +32,9 @@ const listofGroups = ({navigation}) => {
     },[]);
 
     return (
-        <View>
-            <Text style={styles.text}>List of Groups: </Text>
+        <View style={{flex: 1}}>
             <FlatList
+                style = {{flex: 1}}
                 data={Object.keys(state.groupNames)}
                 renderItem = {({item}) =>
                     <TouchableOpacity
