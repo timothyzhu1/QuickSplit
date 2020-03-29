@@ -16,6 +16,8 @@ const itemReducer = (state, action) => {
       return {...state, members: action.payload}
     case 'valid':
       return {...state, valid: action.payload}
+    case 'added':
+        return {...state, added: action.payload}
     default:
       return state
   }
@@ -30,7 +32,9 @@ const itemList = (dispatch) => {
       dispatch({type:'groupID', payload: response.data.groupID})
       await AsyncStorage.setItem('groupID', response.data.groupID);
       const itemResponse = await api.get(`/getItems/${response.data.groupID}`)
+      console.log(itemResponse.data)
       dispatch({type:'items', payload: itemResponse.data.items})
+      dispatch({type:'added', payload: itemResponse.data.added})
     }
     catch(err){
       console.log(err)
@@ -76,5 +80,5 @@ const addItem = (dispatch) => {
 export const { Provider, Context} = context(
   itemReducer,
   {itemList, retMembers, addItem},
-  { groupID:null, items:[], members:[], valid:''}
+  { groupID:null, items:[], members:[], valid:'', added:[]}
 )

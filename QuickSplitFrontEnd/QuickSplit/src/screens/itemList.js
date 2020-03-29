@@ -28,7 +28,7 @@ const itemLists = ({navigation}) => {
               </TouchableOpacity>
       };
   };
-  
+  console.log(state)
   return (
     <View>
 
@@ -36,9 +36,9 @@ const itemLists = ({navigation}) => {
         <Text>{state.groupID}</Text>
         <Text>These r the following items u have</Text>
         <FlatList
-            data={Object.keys(state.items)}
+            data={Object.keys(state.items),Object.keys(state.added)}
             renderItem = {({item}) =>
-                <Text>{state.items[item]}</Text>
+                <Text style={styles.list}>{state.items[item]} added by {state.added[item]}</Text>
             }
             keyExtractor={(item, index) => item.index }
         />
@@ -71,6 +71,29 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 5,
     marginLeft: 5
-  }
+},
+list: {
+  fontSize: 25,
+  color: 'black',
+  marginVertical: 6,
+  elevation: 4,
+  borderRadius: 6,
+  backgroundColor: '#fff',
+  shadowOffset: {
+      width: 1,
+      height: 1
+  },
+  shadowRadius: 2,
+  marginHorizontal : 15,
+  shadowOpacity: 0.4,
+  flexDirection: 'row',
+  fontFamily: 'Kohinoor Bangla',
+},
+groups:{
+    marginVertical: 10,
+    fontFamily: 'Kohinoor Bangla',
+    fontSize: 20,
+    marginHorizontal: 10
+},
 })
 export default itemLists;

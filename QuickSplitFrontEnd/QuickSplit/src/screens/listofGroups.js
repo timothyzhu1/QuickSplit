@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, Button, Text, FlatList, TouchableOpacity, 
 import { ListItem } from 'react-native-elements'
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as groupContext} from '../Context/groupContext'
-import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
+import { ApplicationProvider, Layout, Input, TabBar, Tab} from '@ui-kitten/components';
 import {NavigationEvents} from 'react-navigation'
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
@@ -11,17 +11,19 @@ import {Constants} from 'expo'
 import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 const listofGroups = ({navigation}) => {
     const {state, getgroupNames} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     useEffect(() => {
         getgroupNames();
     },[]);
 //<NavigationEvents onWillFocus={getgroupNames}/>
-
     return (
         <View>
             <Text style={styles.text}>List of Groups: </Text>
@@ -37,9 +39,6 @@ const listofGroups = ({navigation}) => {
                 }
                 keyExtractor={(item, index) => item.index }
             />
-        <TouchableOpacity onPress={() => setActive(!active)}>
-              <Entypo name="circle-with-plus" size={50} color="black" style={styles.add}/>
-            </TouchableOpacity>
             <Modal
                 visible={active}
                 animationType="slide"
@@ -60,6 +59,9 @@ const listofGroups = ({navigation}) => {
                 </TouchableOpacity>
                 </View>
             </Modal>
+            <TouchableOpacity onPress={() => setActive(!active)}>
+                  <Entypo name="circle-with-plus" size={50} color="black" style={styles.add}/>
+                </TouchableOpacity>
         </View>
     );
 };
@@ -86,7 +88,6 @@ const styles = StyleSheet.create({
   },
   list: {
     fontSize: 25,
-    color: 'rgba(255, 87, 51, 0.9)',
     marginVertical: 6,
     elevation: 4,
     borderRadius: 6,
@@ -128,7 +129,8 @@ groups:{
 },
 add: {
     alignSelf: 'flex-end',
-    position: 'absolute'
+    position: 'absolute',
+    bottom: 10
 }
 })
 export default listofGroups;
