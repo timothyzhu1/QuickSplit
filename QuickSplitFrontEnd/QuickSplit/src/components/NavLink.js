@@ -13,7 +13,10 @@ const NavLink = ({navigation, text, routeName}) => {
 }
 const styles = StyleSheet.create({
     container: {
-        fontSize: 20
+        fontSize: 15,
+        fontFamily: 'Kohinoor Bangla',
+        color: 'blue',
+        alignSelf: 'center'
     }
 })
 

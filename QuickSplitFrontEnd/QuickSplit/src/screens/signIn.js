@@ -1,64 +1,58 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Image, Text } from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as authContext} from '../Context/authContext';
 import {NavigationEvents} from 'react-navigation';
-import { ApplicationProvider, Layout, Input, Text, Button} from '@ui-kitten/components';
-import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink';
-import { LinearGradient } from 'expo-linear-gradient';
+import LottieView from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const signIn = ({navigation}) => {
   const {state, signin, trySignin} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   useEffect(() => {
-    //trySignin()
   }, [])
   return (
-        <ApplicationProvider mapping={mapping} theme={lightTheme}>
-            <LinearGradient
-              colors={['rgba(0,0,0,0.8)', 'transparent']}
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                height: 300,
-              }}
+        <View style={styles.container}>
+
+              <Text style={styles.title}>QuickSplit</Text>
+            <LottieView
+            source={require('../images/animation3.json')}
+            autoPlay
+            loop
+            style={styles.animation}
             />
-          <Layout style={styles.container}>
-              <Image
-                  source={require('../images/quicksplitlogo.png')}
-                  style={styles.image}
-                />
-          <Input
+        <KeyboardAvoidingView
+            keyboardVerticalOffset={20}
+            behavior="padding"
+            >
+          <TextInput
             style={styles.input}
             placeholder= "Username"
             value= {user}
             onChangeText={(user) => setUser(user)}
             />
-          <Input
+        <TextInput
             style={styles.input}
             placeholder= "Password"
             secureTextEntry={true}
             value = {pass}
             onChangeText={(pass) => setPass(pass)}
             />
-              <Button
-                  style={styles.button}
-                appearance='outline'
+        <TouchableOpacity
+                style={styles.button}
                 onPress={()=> signin({user, pass})}
                 >
-                Submit
-            </Button>
+        <Text style={styles.signIn}>Sign In</Text>
+        </TouchableOpacity>
+        </KeyboardAvoidingView>
               <Text style={styles.invalid}>{state.invalid}</Text>
-            </Layout>
             <NavLink
                 routeName="signup"
                 text="Dont have an account? Sign up"
               />
-        </ApplicationProvider>
+      </View>
   )
 }
 
@@ -66,8 +60,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#96bfff',
-    paddingTop: 300
+    backgroundColor: 'white',
+  },
+  animation: {
+      height: 300,
+      alignSelf: 'center'
+  },
+  title: {
+      fontFamily: 'Kohinoor Bangla',
+      fontSize: 60,
+      alignSelf: 'center'
   },
   image: {
     width: 150,
@@ -77,24 +79,33 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   button: {
+    height: 40,
     marginTop: 30,
     marginLeft: 10,
-    marginRight: 10
-  },
-  text:{
-    padding: 10,
-    marginBottom: 15
+    marginRight: 10,
+    backgroundColor: '#28c716',
+    borderRadius: 8,
+    justifyContent: 'center'
   },
   invalid: {
     color: 'black'
   },
+  signIn: {
+      fontSize: 20,
+      alignSelf: 'center',
+      color: 'white',
+      fontFamily: 'Kohinoor Bangla'
+  },
   input: {
-    padding: 5,
-    height: 40,
+    padding: 10,
     marginBottom: 15,
-    paddingVertical: 10,
-    marginLeft: 5,
-    borderRadius: 20
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 20,
+    borderBottomWidth: 5,
+    borderLeftWidth: 3,
+    borderRightWidth: 3,
+    height: 50
   }
 })
 export default signIn;
