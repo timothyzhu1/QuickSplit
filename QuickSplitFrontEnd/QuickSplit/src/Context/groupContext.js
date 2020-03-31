@@ -30,27 +30,12 @@ const getgroupNames = (dispatch) => async() => { //retrieves the members of a ce
 }
 
 const joinGroup = (dispatch) => { //post reuqest for joining a group given a code
-  return async({group}) => {
+  return async({groupCode}) => {
+    console.log(groupCode);
     try{
       const user = await AsyncStorage.getItem('user');
-      console.log(user, group);
-      const response = await api.get(`/joinGroup/${user}/${group}/`)
-      if(response.data.Worked == 'N'){
-        dispatch({type:'noAdd', payload: 'You are already in that group'})
-        console.log('here');
-      }
-      else if(response.data.Worked == 'Y'){
-        console.log('1')
-        navigate('groupList')
-      }
-      else if(response.data.Worked == 'D'){
-        console.log('2')
-        dispatch({type:'noAdd', payload: 'This group does not exist'})
-      }
-      else {
-        console.log('3')
-        dispatch({type:'noAdd', payload: 'There was an error adding this group'})
-      }
+      const response = await api.get(`/joinGroup/${user}/${groupCode}/`)
+      console.log(response.data)
 
     }
     catch(err){
@@ -60,10 +45,11 @@ const joinGroup = (dispatch) => { //post reuqest for joining a group given a cod
 }
 
 const createGroup = (dispatch) => { //
-    return async ({newName}) => {
+    return async ({newGroupName}) => {
+        console.log(newGroupName)
         try{
             const user = await AsyncStorage.getItem('user');
-            const response = await api.post(`/createGroup/${user}/${newName}/`);
+            const response = await api.post(`/createGroup/${user}/${newGroupName}/`);
             console.log(response.data);
         } catch (err) {
             console.log(err);
@@ -72,7 +58,8 @@ const createGroup = (dispatch) => { //
 }
 
   const deleteGroup = (dispatch) => {
-    return async ({user, pass}) => {
+    return async ({groupName}) => {
+        console.log(groupName)
       try{
         const response = await api.get(`/deleteGroup/${user}/${groupCode}/`)
       }

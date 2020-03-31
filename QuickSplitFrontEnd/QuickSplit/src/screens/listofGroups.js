@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { View, StyleSheet, TextInput, Button, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { View, StyleSheet, TextInput, Button, Text, FlatList, TouchableOpacity, Modal, Alert } from 'react-native';
 import { ListItem } from 'react-native-elements'
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as groupContext} from '../Context/groupContext'
@@ -10,23 +10,32 @@ import NavLink from '../components/NavLink'
 import {Constants} from 'expo'
 import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
-import { Ionicons, Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 
 
 let activeGlobal, setActiveGlobal;
 
 const listofGroups = ({navigation}) => {
-    const {state, getgroupNames} = useContext(groupContext);
+    const {state, getgroupNames, joinGroup, createGroup} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
+    const [secondModal, setsecondModal] = useState(false);
+    const [groupCode, setGroupCode] = useState('');
+    const [newGroupName, setnewgroupName] = useState('')
+
     activeGlobal = active;
     setActiveGlobal = setActive;
-
+    console.log(groupCode)
     useEffect(() => {
         getgroupNames();
 
     },[]);
-
+    const alert = () => {
+        Alert.alert('Deleting A Group', 'Are you sure you would like to leave this group?', [
+            {text: 'Yes', onPress: () => console.log('works')},
+            {text: 'No', onPress: () => console.log('no')}
+        ])
+    }
     return (
         <View style={styles.container}>
             <FlatList
@@ -38,29 +47,76 @@ const listofGroups = ({navigation}) => {
                         onPress={
                             () => {navigate('itemLists', state.groupNames[item])}}>
                         <Text style={styles.groups}>{state.groupNames[item]}</Text>
+                        <TouchableOpacity
+                            onPress={() => alert(state.groupNames[item])}>
+                            <Ionicons name="ios-remove-circle-outline" style={styles.deleteGroup} size={35} color="black"/>
+                        </TouchableOpacity >
                     </TouchableOpacity>
                 }
                 keyExtractor={(item, index) => item.index }
             />
-        <TouchableOpacity onPress={() => setActive(!active)}>
-              <Entypo name="circle-with-plus" size={50} color="black" style={styles.add}/>
-            </TouchableOpacity>
             <Modal
                 visible={active}
                 animationType="slide"
                 transparent={true}
                 >
                 <View style={styles.modalView}>
-                    <Text>Please Enter the Group Code Here</Text>
-                    <TextInput style={styles.input}>
+                    <Text>Enter the Group Code Here</Text>
+                    <TextInput
+                        placeholder="Enter code here"
+                        onChangeText={(groupCode) => setGroupCode(groupCode)}
+                        >
 
                     </TextInput>
                 <TouchableOpacity
                     onPress={() => setActive(!active)}
                     >
-                    <Text style={styles.text}>CLICK HERE TO CLOSE</Text>
-                    <TouchableOpacity>
-                        <Text>Submit</Text>
+                    <Entypo name="circle-with-cross" size={50} color="black"/>
+                    <TouchableOpacity
+                        onPress={() => joinGroup({groupCode})}
+                        >
+                        <Text>Join Group</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() =>
+                            {setsecondModal(!secondModal),
+                            setActive(!active)}
+                            }
+                        >
+                        <Text>Create a group here</Text>
+                    </TouchableOpacity>
+                </TouchableOpacity>
+                </View>
+            </Modal>
+            <Modal
+                visible={secondModal}
+                animationType="slide"
+                transparent={true}
+                >
+                <View style={styles.modalView}>
+                    <Text>Enter the Name of your Group</Text>
+                    <TextInput
+                        placeholder="Enter Name here"
+                        onChangeText={(newGroupName) => setnewgroupName(newGroupName)}
+                        >
+
+                    </TextInput>
+                    <Text>{groupCode}</Text>
+                <TouchableOpacity
+                    onPress={() => setsecondModal(!secondModal)}
+                    >
+                    <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
+                    <TouchableOpacity
+                        onPress={() => createGroup({newGroupName})}>
+                        <Text>Create Group</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() =>
+                            {setsecondModal(!secondModal),
+                            setActive(!active)}
+                            }
+                        >
+                        <Text>Join a group here</Text>
                     </TouchableOpacity>
                 </TouchableOpacity>
                 </View>
@@ -110,6 +166,8 @@ const styles = StyleSheet.create({
     shadowColor: 'gray',
     shadowRadius: 2,
     shadowOpacity: 0.6,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
 },
 modalView: {
   margin: 70,
@@ -127,10 +185,11 @@ modalView: {
   elevation: 5
 },
 input: {
-    borderColor: "red",
-    borderWidth: 3,
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
     color: 'black',
-    paddingRight: 10
+    marginRight: 10,
+    height: 48
 },
 groups:{
     marginVertical: 10,
@@ -141,6 +200,13 @@ groups:{
 add: {
     alignSelf: 'flex-end',
     position: 'absolute'
+},
+deleteGroup: {
+    flex: 1,
+    alignSelf: 'center',
+    alignItems:'center',
+    justifyContent: 'center',
+    fontSize: 35
 }
 })
 export default listofGroups;
