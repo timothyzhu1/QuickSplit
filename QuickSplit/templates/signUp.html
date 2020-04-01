@@ -13,16 +13,16 @@
 
 <style>
 html, body {
-  margin: 0; 
+  margin: 0;
   height: 100%;
 }
- 
+
 .brand_logo_container {
   position: absolute;
   float: top;
   top:1%;
   left:5%;
- 
+
   padding: 10%;
   text-align: center;
 }
@@ -34,7 +34,7 @@ html, body {
   left:35%;
   padding: 10%;
   text-align: center;
-  
+
 }
 
 .brand_logo {
@@ -65,7 +65,7 @@ html, body {
   text-align: center;
 }
 
-  
+
 #centerSubmit
 {
     width: 40%;
@@ -115,7 +115,7 @@ html, body {
 #bigtext
 {
     padding-left: 1%;
-    
+
 }
 #passbigtext
 {
@@ -144,7 +144,7 @@ html, body {
         <div class="form-check">
         </div>
       </form>
-<!-- 
+<!--
       <form>
           <label for="user" class = "centersign">Username:</label> </br>
           <input id="user" type="text" placeholder="Enter username">
@@ -168,7 +168,7 @@ html, body {
             localStorage['user']= user;
             localStorage['pass']= pass;
 
-            request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signUp/'+ user+'/' + pass + '/', true)
+            request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/signUp/'+ user+'/' + pass + '/', true)
 
             request.onload = function() {
             // Begin accessing JSON data here
@@ -176,13 +176,13 @@ html, body {
                 var obj = JSON.parse(this.response);
                 if(obj.Worked==="Y")
                 {
-                  window.location.replace("http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/groupsPage/?");
+                  window.location.replace("http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/groupsPage/?");
                 }
                 else
                 {
                   document.getElementById("groups").innerHTML = "Username or password incorrect. Please try again.";
                 }
-                
+
             }
 
             // Send request

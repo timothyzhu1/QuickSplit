@@ -191,7 +191,7 @@
             <input type="password" class="form-control" id="pass" placeholder="password">
           </div>
           <div id="submitcontainer">
-            <div id="signUp"><p1> Don't have an account? <br><a href = "http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signUpPage/">Sign up</a></p1></div>
+            <div id="signUp"><p1> Don't have an account? <br><a href = "http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/signUpPage/">Sign up</a></p1></div>
             <button  id = "centerSubmit"  class="btn btn-secondary" type="button" onclick="getForms()" >GO</button>
           </div>
         </form>
@@ -202,7 +202,7 @@
     <script>
       function redirSign()
       {
-        window.location.replace("http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signUpPage/?");
+        window.location.replace("http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/signUpPage/?");
       }
       function getForms(){
           console.log("printed");
@@ -216,7 +216,7 @@
               localStorage['user']= user;
               localStorage['pass']= pass;
 
-              request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/signIn/'+ user+'/' + pass +'/', true)
+              request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/signIn/'+ user+'/' + pass +'/', true)
 
               request.onload = function() {
               // Begin accessing JSON data here
@@ -227,7 +227,7 @@
                     document.getElementById("user").style.border = "2px solid green";
                     document.getElementById("user").style.border.radius = "4px";
                     document.getElementById("pass").style.border = "2px solid green";
-                    window.location.replace("http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/groupsPage/?");
+                    window.location.replace("http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/groupsPage/?");
                   }
                   else
                   {

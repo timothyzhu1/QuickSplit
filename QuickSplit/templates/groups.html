@@ -216,7 +216,7 @@
         document.getElementById('username').innerHTML = "Currently Signed in as  "+ user;
         document.getElementById('username').onclick = function()
         {
-          window.location.replace('http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/introPage/');
+          window.location.replace('http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/introPage/');
         }
         localStorage['got'] = false;
         // Create a request variable and assign a new XMLHttpRequest object to it.
@@ -224,7 +224,7 @@
         var user = localStorage.getItem('user');
         console.log(user)
         // Open a new connection, using the GET request on the URL endpoint
-        request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getGroupNames/' + user + '/', true);
+        request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/getGroupNames/' + user + '/', true);
         request.onload = function() {
             // Begin accessing JSON data here
             var obj = JSON.parse(this.response);
@@ -254,13 +254,13 @@
         function getID(username, groupname)
         {
           var request2  = new XMLHttpRequest();
-          request2.open('GET','http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getGroupID/'+username+'/'+groupname+'/');
+          request2.open('GET','http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/getGroupID/'+username+'/'+groupname+'/');
           request2.onload = function(){
             console.log("here");;
             var obj2 = JSON.parse(this.response);
             localStorage['groupID'] = obj2.groupID;
             localStorage['got'] = true;
-            window.location.replace('http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/itemPage/');
+            window.location.replace('http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/itemPage/');
           }
           request2.send();
 
@@ -297,7 +297,7 @@
               var request = new XMLHttpRequest()
                 var joinCode = document.getElementById("joincode").value;
                 var user = localStorage.getItem('user');
-                request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/joinGroup/'+ user+'/' +joinCode +'/', true)
+                request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/joinGroup/'+ user+'/' +joinCode +'/', true)
                 request.onload = function() {
                 // Begin accessing JSON data here
                     var obj = JSON.parse(this.response);

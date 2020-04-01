@@ -295,12 +295,12 @@
         document.getElementById('username').innerHTML = "Currently Signed in as  "+ user;
         document.getElementById('username').onclick = function()
         {
-          window.location.replace('http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/introPage/');
+          window.location.replace('http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/introPage/');
         }
         var agroupID = localStorage.getItem('groupID');
         console.log(agroupID)
         var request2 = new XMLHttpRequest()
-        request2.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/getItems/'+agroupID+'/', true)
+        request2.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/getItems/'+agroupID+'/', true)
         request2.onload = function() {
         // Begin accessing JSON data here
             var obj = JSON.parse(this.response);
@@ -362,7 +362,7 @@
                 var user = localStorage.getItem('user');
                 var agroupID = localStorage.getItem('groupID');
                 //agroupID = agroupID+1000;
-                request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/addItem/'+ user+'/' +(parseInt(agroupID)+1000)+'/'+itemName+'/', true)
+                request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/addItem/'+ user+'/' +(parseInt(agroupID)+1000)+'/'+itemName+'/', true)
                 request.onload = function() {
                 // Begin accessing JSON data here
                     var obj = JSON.parse(this.response);
@@ -420,7 +420,7 @@
               var request = new XMLHttpRequest()
                 var joinCode = document.getElementById("joincode").value;
                 var user = localStorage.getItem('user');
-                request.open('GET', 'http://ec2-54-153-60-85.us-west-1.compute.amazonaws.com:8000/joinGroup/'+ user+'/' +joinCode +'/', true)
+                request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/joinGroup/'+ user+'/' +joinCode +'/', true)
                 request.onload = function() {
                 // Begin accessing JSON data here
                     var obj = JSON.parse(this.response);
