@@ -13,8 +13,8 @@ import { AsyncStorage} from 'react-native';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 
 
-let activeGlobal, setActiveGlobal;
-
+let activeGlobal, setActiveGlobal, personName;
+console.log(personName)
 const listofGroups = ({navigation}) => {
     const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
@@ -25,14 +25,13 @@ const listofGroups = ({navigation}) => {
 
     activeGlobal = active;
     setActiveGlobal = setActive;
-    console.log(groupCode)
+    personName = state.personName
+    console.log(personName)
     useEffect(() => {
         getgroupNames();
         getPersonName();
     },[]);
-    console.log(state.groupNames)
     const alert = (group) => {
-        console.log(group)
         Alert.alert('Leaving A Group', 'Are you sure you would like to leave this group?', [
             {text: 'Yes', onPress: () => deleteGroup(group)},
             {text: 'No', onPress: () => console.log('no')}
@@ -130,7 +129,7 @@ const listofGroups = ({navigation}) => {
 
 listofGroups.navigationOptions = ({navigation}) => {
     return {
-        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Groups</Text>,
+        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>{personName}</Text>,
         headerRight:
             <TouchableOpacity
                 onPress={() => {setActiveGlobal(!activeGlobal)}}
