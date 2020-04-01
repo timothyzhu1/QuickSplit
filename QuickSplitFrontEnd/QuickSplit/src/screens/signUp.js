@@ -11,37 +11,46 @@ const signUp = ({navigation}) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   return (
-    <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <Layout>
-        <Text style={styles.text}>Enter Username:</Text>
-      <Input
-        style={styles.input}
-        placeholder= "Username"
-        value= {user}
-        onChangeText={(user) => setUser(user)}
-        />
-      <Text style={styles.text}>
-            Enter Password:
-          </Text>
-          <Input
+        <View style={styles.container}>
+
+              <Text style={styles.title}>QuickSplit</Text>
+            <LottieView
+            source={require('../images/animation3.json')}
+            autoPlay
+            loop
+            style={styles.animation}
+            />
+        <KeyboardAvoidingView
+            keyboardVerticalOffset={20}
+            behavior="padding"
+            >
+          <TextInput
+            style={styles.input}
+            placeholder= "Username"
+            value= {user}
+            onChangeText={(user) => setUser(user)}
+            />
+        <TextInput
             style={styles.input}
             placeholder= "Password"
             secureTextEntry={true}
             value = {pass}
             onChangeText={(pass) => setPass(pass)}
             />
-          <Button
-            title="Submit"
-            onPress={()=> signup({user, pass})}
-            />
-            <Text style={styles.invalid}>{state.invalid}</Text>
-        </Layout>
-        <NavLink
-            routeName="signin"
-            text="Have an account? Sign in"
-          />
-    </ApplicationProvider>
-)
+        <TouchableOpacity
+                style={styles.button}
+                onPress={()=> signin({user, pass})}
+                >
+        <Text style={styles.signIn}>Sign In</Text>
+        </TouchableOpacity>
+        </KeyboardAvoidingView>
+              <Text style={styles.invalid}>{state.invalid}</Text>
+            <NavLink
+                routeName="signup"
+                text="Dont have an account? Sign up"
+              />
+      </View>
+  )
 }
 
 const styles = StyleSheet.create({
