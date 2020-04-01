@@ -67,18 +67,20 @@ const listofGroups = ({navigation}) => {
                     <TextInput
                         placeholder="Enter code here"
                         onChangeText={(groupCode) => setGroupCode(groupCode)}
-                        >
-
-                    </TextInput>
-                <TouchableOpacity
-                    onPress={() => setActive(!active)}
                     >
-                    <Entypo name="circle-with-cross" size={50} color="black"/>
+                    </TextInput>
+                    <TouchableOpacity
+                        onPress={() => setActive(!active)}>
+                        <Entypo name="circle-with-cross" size={50} color="black"/>
+                    </TouchableOpacity>
+
+
                     <TouchableOpacity
                         onPress={() => joinGroup({groupCode})}
                         >
                         <Text>Join Group</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         onPress={() =>
                             {setsecondModal(!secondModal),
@@ -86,10 +88,11 @@ const listofGroups = ({navigation}) => {
                             }
                         >
                         <Text>Create a group here</Text>
-                    </TouchableOpacity>
+
                 </TouchableOpacity>
                 </View>
             </Modal>
+
             <Modal
                 visible={secondModal}
                 animationType="slide"
@@ -100,14 +103,14 @@ const listofGroups = ({navigation}) => {
                     <TextInput
                         placeholder="Enter Name here"
                         onChangeText={(newGroupName) => setnewgroupName(newGroupName)}
-                        >
-
+                    >
                     </TextInput>
                     <Text>{groupCode}</Text>
-                <TouchableOpacity
-                    onPress={() => setsecondModal(!secondModal)}
-                    >
-                    <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
+
+                    <TouchableOpacity onPress={() => setsecondModal(!secondModal)}>
+                        <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
+                    </TouchableOpacity>
+
                     <TouchableOpacity
                         onPress={() => createGroup({newGroupName})}>
                         <Text>Create Group</Text>
@@ -120,7 +123,7 @@ const listofGroups = ({navigation}) => {
                         >
                         <Text>Join a group here</Text>
                     </TouchableOpacity>
-                </TouchableOpacity>
+
                 </View>
             </Modal>
         </View>
@@ -173,11 +176,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
 },
 modalView: {
-  margin: 70,
+  //margin: 70,
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 300,
+  height: 300,
   backgroundColor: "white",
   borderRadius: 20,
-  padding: 35,
-  alignItems: "center",
+  //padding: 35,
   shadowColor: "#000",
   shadowOffset: {
     width: 0,
