@@ -9,6 +9,7 @@ import listofGroups from './src/screens/listofGroups'
 import {Provider as AuthProvider} from './src/Context/authContext'
 import {Provider as GroupProvider} from './src/Context/groupContext'
 import {Provider as ItemProvider} from './src/Context/itemContext'
+import {Provider as ModalProvider} from './src/Context/modalContext';
 import {setNavigator} from './src/navigationRef'
 import signout from './src/screens/signout'
 import itemLists from './src/screens/itemList'
@@ -45,12 +46,14 @@ const App = createAppContainer(mainNavigator);
 
 export default () => {
   return(
-    <ItemProvider>
-      <GroupProvider>
-        <AuthProvider>
-        <App ref={(navigator) => { setNavigator(navigator)}}/>
-      </AuthProvider>
-    </GroupProvider>
-  </ItemProvider>
+    <ModalProvider>
+        <ItemProvider>
+          <GroupProvider>
+            <AuthProvider>
+            <App ref={(navigator) => { setNavigator(navigator)}}/>
+          </AuthProvider>
+        </GroupProvider>
+      </ItemProvider>
+  </ModalProvider>
 );
 }

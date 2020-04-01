@@ -2,7 +2,8 @@ import React, {useState, useContext, useEffect} from 'react';
 import { View, StyleSheet, TextInput, Button, Text, FlatList, TouchableOpacity, Modal, Alert } from 'react-native';
 import { ListItem } from 'react-native-elements'
 // import RegisterComponent from '../components/RegisterComponent'
-import {Context as groupContext} from '../Context/groupContext'
+import {Context as groupContext} from '../Context/groupContext';
+import {Context as modalContext} from '../Context/modalContext';
 import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import {NavigationEvents} from 'react-navigation'
 import { mapping, light as lightTheme } from '@eva-design/eva';
@@ -17,6 +18,9 @@ let activeGlobal, setActiveGlobal, personName;
 console.log(personName)
 const listofGroups = ({navigation}) => {
     const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
+    const ModalStateObj = useContext(modalContext);
+
+
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
     const [secondActive, setsecondActive] = useState(false);
@@ -57,6 +61,7 @@ const listofGroups = ({navigation}) => {
                 }
                 keyExtractor={(item, index) => item.id }
             />
+
             <Modal
                 visible={active}
                 animationType="slide"
