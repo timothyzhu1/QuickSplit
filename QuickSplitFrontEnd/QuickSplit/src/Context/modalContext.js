@@ -12,7 +12,6 @@ const modalReducer = (state, action) => {
         return {...state, modal1Active: !state.modal1Active};
     case 'm2':
         return {...state, modal2Active: !state.modal2Active};
-
     default:
       return state;
   }

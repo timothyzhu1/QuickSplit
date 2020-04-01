@@ -14,23 +14,23 @@ import { AsyncStorage} from 'react-native';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 
 
-let activeGlobal, setActiveGlobal, personName;
+let personName;
+
+let globalSetModal1State;
+
 console.log(personName)
 const listofGroups = ({navigation}) => {
     const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
     const ModalStateObj = useContext(modalContext);
 
+    globalSetModal1State = ModalStateObj.setModal1State;
 
     const [groups, setGroups] = useState(null);
-    const [active, setActive] = useState(false);
-    const [secondActive, setsecondActive] = useState(false);
     const [groupCode, setGroupCode] = useState('');
     const [newGroupName, setnewgroupName] = useState('')
 
-    activeGlobal = active;
-    setActiveGlobal = setActive;
     personName = state.personName;
-    console.log(personName);
+    //console.log(personName);
     useEffect(() => {
         getgroupNames();
         getPersonName();
@@ -63,7 +63,7 @@ const listofGroups = ({navigation}) => {
             />
 
             <Modal
-                visible={active}
+                visible={ModalStateObj.state.modal1Active}
                 animationType="slide"
                 transparent={true}
                 >
@@ -75,7 +75,7 @@ const listofGroups = ({navigation}) => {
                     >
                     </TextInput>
                     <TouchableOpacity
-                        onPress={() => setActive(!active)}>
+                        onPress={() => ModalStateObj.setModal1State()}>
                         <Entypo name="circle-with-cross" size={50} color="black"/>
                     </TouchableOpacity>
 
@@ -86,8 +86,8 @@ const listofGroups = ({navigation}) => {
 
                     <TouchableOpacity
                         onPress={() =>
-                            {setsecondActive(!secondActive),
-                            setActive(!active)}
+                            {ModalStateObj.setModal1State(),
+                            ModalStateObj.setModal2State()}
                             }
                         >
                         <Text>Create a group here</Text>
@@ -97,7 +97,7 @@ const listofGroups = ({navigation}) => {
             </Modal>
 
             <Modal
-                visible={secondActive}
+                visible={ModalStateObj.state.modal2Active}
                 animationType="slide"
                 transparent={true}
                 >
@@ -110,7 +110,7 @@ const listofGroups = ({navigation}) => {
                     </TextInput>
                     <Text>{groupCode}</Text>
 
-                    <TouchableOpacity onPress={() => setsecondActive(!secondActive)}>
+                    <TouchableOpacity onPress={() => ModalStateObj.setModal2State()}>
                         <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
                     </TouchableOpacity>
 
@@ -120,8 +120,8 @@ const listofGroups = ({navigation}) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() =>
-                            {setsecondActive(!secondActive),
-                            setActive(!active)}
+                            {ModalStateObj.setModal2State(),
+                            ModalStateObj.setModal1State()}
                             }
                         >
                         <Text>Join a group here</Text>
@@ -138,7 +138,7 @@ listofGroups.navigationOptions = ({navigation}) => {
         headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>{personName}</Text>,
         headerRight:
             <TouchableOpacity
-                onPress={() => {setActiveGlobal(!activeGlobal)}}
+                onPress={() => {globalSetModal1State();}}
                 style={{marginRight: 10}}>
                 <Entypo name="circle-with-plus" size={32} color="black" />
             </TouchableOpacity>
