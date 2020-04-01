@@ -13,7 +13,6 @@ const itemLists = ({navigation}) => {
   const {state, itemList, retMembers} = useContext(itemContext)
   const groupName = navigation.state.params;
 
-  AsyncStorage.setItem('groupName', groupName);
   useEffect(() => {
     itemList();
     retMembers();
@@ -28,7 +27,7 @@ const itemLists = ({navigation}) => {
               </TouchableOpacity>
       };
   };
-  console.log(state)
+  console.log(state.items)
   return (
     <View>
 
@@ -36,9 +35,10 @@ const itemLists = ({navigation}) => {
         <Text>{state.groupID}</Text>
         <Text>These r the following items u have</Text>
         <FlatList
-            data={Object.keys(state.items),Object.keys(state.added)}
-            renderItem = {({item}) =>
-                <Text style={styles.list}>{state.items[item]} added by {state.added[item]}</Text>
+            data={state.items}
+            renderItem = {
+                ({item}) =>
+                <Text style={styles.list}>{state.items}</Text>
             }
             keyExtractor={(item, index) => item.index }
         />

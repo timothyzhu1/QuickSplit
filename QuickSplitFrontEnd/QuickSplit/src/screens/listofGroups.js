@@ -19,14 +19,14 @@ const listofGroups = ({navigation}) => {
     const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
-    const [secondModal, setsecondModal] = useState(false);
+    const [secondActive, setsecondActive] = useState(false);
     const [groupCode, setGroupCode] = useState('');
     const [newGroupName, setnewgroupName] = useState('')
 
     activeGlobal = active;
     setActiveGlobal = setActive;
-    personName = state.personName
-    console.log(personName)
+    personName = state.personName;
+    console.log(personName);
     useEffect(() => {
         getgroupNames();
         getPersonName();
@@ -75,15 +75,13 @@ const listofGroups = ({navigation}) => {
                     </TouchableOpacity>
 
 
-                    <TouchableOpacity
-                        onPress={() => joinGroup({groupCode})}
-                        >
+                    <TouchableOpacity onPress={() => joinGroup({groupCode})}>
                         <Text>Join Group</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() =>
-                            {setsecondModal(!secondModal),
+                            {setsecondActive(!secondActive),
                             setActive(!active)}
                             }
                         >
@@ -94,7 +92,7 @@ const listofGroups = ({navigation}) => {
             </Modal>
 
             <Modal
-                visible={secondModal}
+                visible={secondActive}
                 animationType="slide"
                 transparent={true}
                 >
@@ -107,7 +105,7 @@ const listofGroups = ({navigation}) => {
                     </TextInput>
                     <Text>{groupCode}</Text>
 
-                    <TouchableOpacity onPress={() => setsecondModal(!secondModal)}>
+                    <TouchableOpacity onPress={() => setsecondActive(!secondActive)}>
                         <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
                     </TouchableOpacity>
 
@@ -117,7 +115,7 @@ const listofGroups = ({navigation}) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() =>
-                            {setsecondModal(!secondModal),
+                            {setsecondActive(!secondActive),
                             setActive(!active)}
                             }
                         >
