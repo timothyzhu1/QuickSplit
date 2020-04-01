@@ -21,8 +21,8 @@ const getgroupNames = (dispatch) => async() => { //retrieves the members of a ce
     try{
       const user = await AsyncStorage.getItem('user');
       const response = await api.get(`/getGroupNames/${user}`);
-      console.log(response.data);
-      // dispatch({type: 'groupNames', payload: response.data.groupNames})
+      console.log(response.data.things);
+      dispatch({type: 'groupNames', payload: response.data.groupNames})
     }
     catch(err){
       console.log(err);
@@ -45,23 +45,27 @@ const joinGroup = (dispatch) => { //post reuqest for joining a group given a cod
 }
 
 const createGroup = (dispatch) => { //
-    return async ({newGroupName}) => {
+    return async (newGroupName) => {
         console.log(newGroupName)
         try{
             const user = await AsyncStorage.getItem('user');
             const response = await api.post(`/createGroup/${user}/${newGroupName}/`);
             console.log(response.data);
-        } catch (err) {
+        }
+        catch (err) {
             console.log(err);
         }
     }
 }
 
   const deleteGroup = (dispatch) => {
-    return async ({groupName}) => {
-        console.log(groupName)
+    return async (group) => {
+        console.log(group)
       try{
-        const response = await api.get(`/deleteGroup/${user}/${groupCode}/`)
+        const user = await AsyncStorage.getItem('user');
+        const groupID = await api.get(`/getGroupID/${user}/${group}/`);
+        const deleteGroup = await api.get(`/leaveGroup/${user}/${100 + groupID.data.groupID}/`);
+        console.log(deleteGroup.data)
       }
       catch(err){ //still need to edit
         console.log(err);

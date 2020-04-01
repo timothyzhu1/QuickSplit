@@ -16,7 +16,7 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 let activeGlobal, setActiveGlobal;
 
 const listofGroups = ({navigation}) => {
-    const {state, getgroupNames, joinGroup, createGroup} = useContext(groupContext);
+    const {state, getgroupNames, joinGroup, createGroup, deleteGroup} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
     const [secondModal, setsecondModal] = useState(false);
@@ -30,9 +30,10 @@ const listofGroups = ({navigation}) => {
         getgroupNames();
 
     },[]);
-    const alert = () => {
-        Alert.alert('Deleting A Group', 'Are you sure you would like to leave this group?', [
-            {text: 'Yes', onPress: () => console.log('works')},
+    const alert = (group) => {
+        console.log(group)
+        Alert.alert('Leaving A Group', 'Are you sure you would like to leave this group?', [
+            {text: 'Yes', onPress: () => deleteGroup(group)},
             {text: 'No', onPress: () => console.log('no')}
         ])
     }
@@ -40,20 +41,21 @@ const listofGroups = ({navigation}) => {
         <View style={styles.container}>
             <FlatList
                 style = {{flex: 1}}
-                data={Object.keys(state.groupNames)}
-                renderItem = {({item}) =>
+                data={state.groupNames}
+                renderItem = {
+                    ({item}) =>
                     <TouchableOpacity
                         style={styles.list}
                         onPress={
-                            () => {navigate('itemLists', state.groupNames[item])}}>
-                        <Text style={styles.groups}>{state.groupNames[item]}</Text>
+                            () => {navigate('itemLists', item.group)}}>
+                        <Text style={styles.groups}>{item.group}</Text>
                         <TouchableOpacity
-                            onPress={() => alert(state.groupNames[item])}>
+                            onPress={() => alert(item.group)}>
                             <Ionicons name="ios-remove-circle-outline" style={styles.deleteGroup} size={35} color="black"/>
                         </TouchableOpacity >
                     </TouchableOpacity>
                 }
-                keyExtractor={(item, index) => item.index }
+                keyExtractor={(item, index) => item.id }
             />
             <Modal
                 visible={active}
@@ -167,7 +169,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.6,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
 },
 modalView: {
   margin: 70,
@@ -202,11 +205,8 @@ add: {
     position: 'absolute'
 },
 deleteGroup: {
-    flex: 1,
-    alignSelf: 'center',
-    alignItems:'center',
-    justifyContent: 'center',
-    fontSize: 35
+    fontSize: 35,
+    paddingRight: 5
 }
 })
 export default listofGroups;
