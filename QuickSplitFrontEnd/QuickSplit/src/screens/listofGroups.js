@@ -7,7 +7,8 @@ import {Context as modalContext} from '../Context/modalContext';
 import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import {NavigationEvents} from 'react-navigation'
 import { mapping, light as lightTheme } from '@eva-design/eva';
-import NavLink from '../components/NavLink'
+import NavLink from '../components/NavLink';
+import JoinGroupModal from '../components/joinGroupModal'
 import {Constants} from 'expo'
 import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
@@ -26,8 +27,6 @@ const listofGroups = ({navigation}) => {
     globalSetModal1State = ModalStateObj.setModal1State;
 
     const [groups, setGroups] = useState(null);
-    const [groupCode, setGroupCode] = useState('');
-    const [newGroupName, setnewgroupName] = useState('')
 
     personName = state.personName;
     //console.log(personName);
@@ -61,74 +60,7 @@ const listofGroups = ({navigation}) => {
                 }
                 keyExtractor={(item, index) => item.id }
             />
-
-            <Modal
-                visible={ModalStateObj.state.modal1Active}
-                animationType="slide"
-                transparent={true}
-                >
-                <View style={styles.modalView}>
-                    <Text>Enter the Group Code Here</Text>
-                    <TextInput
-                        placeholder="Enter code here"
-                        onChangeText={(groupCode) => setGroupCode(groupCode)}
-                    >
-                    </TextInput>
-                    <TouchableOpacity
-                        onPress={() => ModalStateObj.setModal1State()}>
-                        <Entypo name="circle-with-cross" size={50} color="black"/>
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity onPress={() => joinGroup({groupCode})}>
-                        <Text>Join Group</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() =>
-                            {ModalStateObj.setModal1State(),
-                            ModalStateObj.setModal2State()}
-                            }
-                        >
-                        <Text>Create a group here</Text>
-
-                </TouchableOpacity>
-                </View>
-            </Modal>
-
-            <Modal
-                visible={ModalStateObj.state.modal2Active}
-                animationType="slide"
-                transparent={true}
-                >
-                <View style={styles.modalView}>
-                    <Text>Enter the Name of your Group</Text>
-                    <TextInput
-                        placeholder="Enter Name here"
-                        onChangeText={(newGroupName) => setnewgroupName(newGroupName)}
-                    >
-                    </TextInput>
-                    <Text>{groupCode}</Text>
-
-                    <TouchableOpacity onPress={() => ModalStateObj.setModal2State()}>
-                        <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => createGroup({newGroupName})}>
-                        <Text>Create Group</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() =>
-                            {ModalStateObj.setModal2State(),
-                            ModalStateObj.setModal1State()}
-                            }
-                        >
-                        <Text>Join a group here</Text>
-                    </TouchableOpacity>
-
-                </View>
-            </Modal>
+            <JoinGroupModal/>
         </View>
     );
 };
