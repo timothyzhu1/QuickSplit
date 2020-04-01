@@ -1,3 +1,455 @@
+<<<<<<< HEAD:QuickSplit/templates/items.html
+<DOCTYPE!>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Marvel&display=swap" rel="stylesheet">
+
+  <head>
+    <title>Your Title</title>
+    <meta name="Description" content="Your description" />
+    <meta name="Keywords" content="Your, comma delimited, keywords" />
+    <meta equiv="content-type" content="text/html; charset=utf-8" />
+    <!-- <link rel="stylesheet" type="text/css" media="all" href="your-css-stylesheet.css" /> -->
+    <style>
+      html, body
+      {
+
+        margin: 0;
+        height: 100%;
+        background-color:#f2f2f2;
+      }
+      .outerrect
+      {
+        position: absolute;
+        /*padding-left: 30%;
+        padding-right: 30%;
+        padding-top: 10%;
+        padding-bottom: 10%;*/
+        width: 100%;
+        height: 100%;
+        background-color:  ;
+      }
+      .rect
+      {
+        overflow:auto;
+        height:1%;
+        left: 25%;
+        top: 25%;
+        position: relative;
+        text-align: center;
+        width: 50%;
+        height: 50%;
+        background-color:WHITE ;
+        border-radius: 25px;
+      }
+      .logo
+      {
+        position: fixed;
+        background-color: #000000;
+        width: 100%;
+        height: 10%;
+      }
+      .logotext
+      {
+        font-size:3rem;
+        padding:1%;
+        color: #fffdfc;
+        font-family: 'Marvel', sans-serif;
+
+      }
+      .list-item
+      {
+        padding:1%;
+      }
+      .list-item2
+      {
+        padding:1%;
+        color: #a9a9a9;
+
+      }
+      .brand_logo {
+        position: absolute;
+        top:2%;
+        height: 20%;
+        width: 20%;
+        border-radius: 50%;
+        border: 2px solid white;
+        z-index: 99
+      }
+      .brand_logo_container {
+        position: absolute;
+        float: top;
+
+        left:3%;
+        padding: 10%;
+        text-align: center;
+      }
+      .itemslist
+      {
+        margin-left: 10%;
+        position: absolute;;
+        left:0px;
+      }
+      .addedlist
+      {
+        display: inline-block;
+        white-space:nowrap;
+        margin-right: 10%;
+        position: absolute;
+        right:0px;
+
+      }
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 100; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        height: 20%;
+        width: 40%; /* Could be more or less, depending on screen size */
+      }
+
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .inline
+      {
+        display: inline-block;
+        white-space:nowrap;
+      }
+      .center
+      {
+        text-align: center;
+      }
+
+      #username{
+        position:absolute;
+        top:0px;
+        right:0px;
+        font-size:1rem;
+        padding:1%;
+        color: #fffdfc;
+        font-family: 'Marvel', sans-serif;
+      }
+      #items
+      {
+        font-size: 2rem;
+        position: relative;
+        text-align: left;
+        padding:3%;
+      }
+      #itemBtn
+      {
+        font-size:1rem;
+        position: absolute;
+        right:0px;
+        bottom: 0px;
+        margin-right: 3%;
+        margin-bottom: 3%;
+        background-color: transparent;
+        width: 5%;
+        height: auto;
+
+
+      }
+
+      #itemname
+      {
+        position: relative;
+        left:0px;
+        margin-left: 1%;
+        width: 70%;
+      }
+      #subJoin
+      {
+        position: relative;
+        right:0px;
+        margin-right: 2%;
+        width:5%;
+        font-size:1rem;
+
+        background-color: WHITE;
+        color: black;
+        border-radius: 2px;
+        border-color: #29759a;
+        font-family: 'Marvel', sans-serif;
+
+      }
+      #joinBtn
+      {
+        font-size:1rem;
+        position: absolute;
+        right:0px;
+        margin-right: 3%;
+        margin-top:2.9%;
+        background-color: black;
+        color: white;
+        border-radius: 2px;
+        border-color: #29759a;
+        font-family: 'Marvel', sans-serif;
+
+      }
+      #joincode
+      {
+        position: relative;
+        left:0px;
+        margin-left: 1%;
+        width: 70%;
+      }
+      #subJoin
+      {
+        position: relative;
+        right:0px;
+        margin-right: 2%;
+        width:5%;
+        font-size:1rem;
+
+        background-color: WHITE;
+        color: black;
+        border-radius: 2px;
+        border-color: #29759a;
+        font-family: 'Marvel', sans-serif;
+
+      }
+      #itemModal
+      {
+        display: none; /* Hidden by default */
+      }
+    </style>
+  </head >
+  <body>
+    <div id="joinModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>To join a group, just enter the join code of the group below:</p>
+        <div class="center">
+          <input class="inline" id="joincode" placeholder="Join Code">
+          <button  class="inline" id = "subJoin">Join!</button>
+        </div>
+      </div>
+    </div>
+    <div id="itemModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" id="y">&times;</span>
+        <p>Enter the name of the item your group needs below:</p>
+        <div class="center">
+          <input class="inline" maxlength="30"id="itemName" placeholder="EX: Eggs">
+          <button  class="inline" id = "subItem">Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="outerrect">
+      <div class="logo">
+        <button id="joinBtn">Join a Group</button>
+        <div class="brand_logo_container">
+          <img src="https://media.discordapp.net/attachments/673019276411666432/673372794142195733/quicksplitlogo.png" class="brand_logo" alt="Logo">
+        </div>
+        <h1 class="logotext">QuickSplit</h1>
+        <p1 id="username"></p>
+      </div>
+      <div class ="rect">
+        <h1 id="items">Items</h1>
+        <div class="itemslist">
+          <ul class="list" id="itemsList">
+          </ul>
+        </div>
+        <div class=addedlist>
+          <ol2 class="list2">
+          </ol>
+        </div>
+        <img id="itemBtn" src="https://cdn.discordapp.com/attachments/673019276411666432/676828638582407168/freeadd.png">
+      </div>
+    </div>
+
+    <script>
+        var name = localStorage.getItem('name');
+        console.log(name);
+        var user = localStorage.getItem('user');
+        console.log(user);
+        document.getElementById('username').innerHTML = "Currently Signed in as  "+ user;
+        document.getElementById('username').onclick = function()
+        {
+          window.location.replace('http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/introPage/');
+        }
+        var agroupID = localStorage.getItem('groupID');
+        console.log(agroupID)
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/getItems/'+agroupID+'/', true)
+        request2.onload = function() {
+        // Begin accessing JSON data here
+            var obj = JSON.parse(this.response);
+            itemslen = obj.items.length;
+            localStorage["itemslen"] = itemslen;
+
+            for(var i=0; i<itemslen; i++){
+                console.log(obj.items[i]);
+                var para = document.createElement("P");               // Create a <p> element
+                para.innerText = obj.items[i];
+                para.className = "list-item";             // Insert text
+                para.id= i;
+                $("ul").append(para);
+                var para2 = document.createElement("P");               // Create a <p> element
+                var intext = "Added by : "+obj.added[i];
+                para2.innerText = intext;
+                para2.className = "list-item2";           // Insert text
+                $("ol2").append(para2);
+            }
+        }
+        // Send request
+        request2.send();
+        document.getElementById("itemsList").addEventListener("click", function(e) {
+          if(e.target && e.target.nodeName == "LI") {
+            console.log("List item ", e.target.id.replace("post-", ""), " was clicked!");
+          }
+        });
+
+        var modal = document.getElementById("itemModal");
+
+        // Get the button that opens the modal
+        var itembtn = document.getElementById("itemBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        itembtn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal2.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal2) {
+            modal2.style.display = "none";
+          }
+        }
+
+        var subItem = document.getElementById("subItem");
+        subItem.onclick = function(){
+            try{
+              var request = new XMLHttpRequest()
+                var itemName = document.getElementById("itemName").value;
+                var user = localStorage.getItem('user');
+                var agroupID = localStorage.getItem('groupID');
+                //agroupID = agroupID+1000;
+                request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/addItem/'+ user+'/' +(parseInt(agroupID)+1000)+'/'+itemName+'/', true)
+                request.onload = function() {
+                // Begin accessing JSON data here
+                    var obj = JSON.parse(this.response);
+                    if(obj.Worked==="Y")
+                    {
+                      document.getElementById("itemName").style.border = "2px solid green";
+                      document.getElementById("subItem").innerHTML = "Done!";
+                      location.reload();
+                    }
+                    else
+                    {
+                      document.getElementById("itemName").style.border = "2px solid red";
+                    }
+
+                }
+
+                // Send request
+                request.send()
+            }
+            catch(err){
+              console.log(err);
+            }
+        }
+
+
+        var modal2 = document.getElementById("joinModal");
+
+        // Get the button that opens the modal
+        var joinbtn = document.getElementById("joinBtn");
+
+        // Get the <span> element that closes the modal
+        var spantwo = document.getElementById("y");
+
+        // When the user clicks on the button, open the modal
+        joinbtn.onclick = function() {
+          modal2.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        spantwo.onclick = function() {
+          console.log("closing");
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+        var subJoin = document.getElementById("subJoin");
+        subJoin.onclick = function(){
+            try{
+              var request = new XMLHttpRequest()
+                var joinCode = document.getElementById("joincode").value;
+                var user = localStorage.getItem('user');
+                request.open('GET', 'http://ec2-52-53-218-230.us-west-1.compute.amazonaws.com:8000/joinGroup/'+ user+'/' +joinCode +'/', true)
+                request.onload = function() {
+                // Begin accessing JSON data here
+                    var obj = JSON.parse(this.response);
+                    if(obj.Worked==="Y")
+                    {
+                      document.getElementById("joincode").style.border = "2px solid green";
+                      document.getElementById("subJoin").innerHTML = "Done!";
+                      location.reload();
+                    }
+                    else
+                    {
+                      document.getElementById("joincode").style.border = "2px solid red";
+                    }
+
+                }
+
+                // Send request
+                request.send()
+            }
+            catch(err){
+              console.log(err);
+            }
+        }
+
+    </script>
+  </body>
+</html>
+=======
 <DOCTYPE!>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -448,3 +900,4 @@
     </script>
   </body>
 </html>
+>>>>>>> 1a8837d6fc99bc134c140fcce4e4ba9b2b8b6322:QuickSplitServer/templates/items.html

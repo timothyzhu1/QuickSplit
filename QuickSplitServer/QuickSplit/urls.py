@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('leaveGroup/<username>/<groupID>/', views.leaveGroup),
     path('signIn/<username>/<password>/', views.signIn),
-    path('signUp/<username>/<password>/', views.signUp),
+    path('signUp/<username>/<password>/<firstName>/', views.signUp),
     path('createGroup/<username>/<groupName>/', views.createGroup),
     path('joinGroup/<username>/<groupID>/', views.joinGroup),
     path('getGroupNames/<username>/', views.getGroupNames),
@@ -30,6 +30,8 @@ urlpatterns = [
     path('addItem/<username>/<groupID>/<itemName>/', views.addItem),
     path('deleteItem/<groupID>/<itemName>/', views.deleteItem),
     path('getItems/<groupID>/', views.getItems),
+    path('getGroupMembers/<groupID>/', views.getGroupMembers),
+    path('getFirstName/<username>/', views.getFirstName),
     path('DEBUG_resetUserPassCollection/', views.DEBUG_resetUserPassCollection),
     path('testing/', views.testing),
     path('homePage/', views.homePage),
@@ -38,5 +40,5 @@ urlpatterns = [
     path('itemPage/', views.itemPage),
     path('basePage/', views.basePage),
     path('introPage/', views.introPage),
-
+    path('testingPost/', views.testingPost),
 ]

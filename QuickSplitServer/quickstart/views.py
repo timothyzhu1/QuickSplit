@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from pymongo import MongoClient
 from rest_framework.decorators import api_view
+import json
 # from django.http import HttpResponse
 
 
@@ -30,13 +31,13 @@ def signIn(request, username, password):
     return Response(res2)
 
 @api_view(('GET',))
-def signUp(request, username, password):
+def signUp(request, username, password, firstName):
     singledict = userPassCollections.find_one({"username": username})
     if(singledict!=None):
         res = "N"
     else:
         res = "Y"
-        newDoc = {"username" :username, "password" : password, "groups":[], "givenGroupNames": []}
+        newDoc = {"username" :username, "password" : password, "groups":[], "givenGroupNames": [], "firstName":firstName}
         userPassCollections.insert_one(newDoc)
     print('LOG: signUp:', res)
     res2 = {"Worked": res}
@@ -62,9 +63,9 @@ def createGroup(request, username, groupName):
         userPassCollections.update_one({"username": username}, {"$set":{"givenGroupNames": singleDict["givenGroupNames"]+[groupName]}})
 
     else: # the user is already in a group with the same name
-        res = "N"
-    res2 = {"Worked": res}
-    return Response(res2)
+        return Response(status = status.HTTP_400_BAD_REQUEST)
+    res2 = {"groupName": groupName, "groupID":groupNum+1001}
+    return Response(res2, status=status.HTTP_201_CREATED)
 
 
 @api_view(('GET',))
@@ -103,8 +104,24 @@ def joinGroup(request, username, groupID):
 @api_view(('GET',))
 def getGroupNames(request, username):
     res = userPassCollections.find_one({"username":username})["givenGroupNames"]
-    resJ = {"groupNames":res}
-    return Response(resJ)
+
+    first = 1
+    idCounter = 0
+    b = '{"groupNames":['
+    group = "group"
+    for item in res:
+        if(first==1):
+            b = b+ '{"group"'+ ":" + '\"'+item+'\", "id":"' +str(idCounter)+'"}'
+            first = 0
+            idCounter = idCounter + 1
+        else:
+            b=b+","
+            b = b+ '{"group"'+ ":" + '\"'+item+'\", "id":"' +str(idCounter)+'"}'
+            idCounter = idCounter + 1
+    b=b+"]}"
+
+    res=json.loads(b)
+    return Response(res)
 
 @api_view(('GET',))
 def addItem(request, username, groupID, itemName):
@@ -202,6 +219,31 @@ def getGroupId(request, username, groupName):
     return Response(res)
 
 @api_view(('GET',))
+def getGroupMembers(request, groupID):
+    res = "N"
+    numberOfGroups = userPassCollections.find_one({"globals": "Y"})["numgroups"]
+    res1 = []
+
+    for i in range(0, numberOfGroups+1):
+        if(loginDb[str(i)].find_one({"globals":"Y"})!=None):
+            groupCollection = loginDb[str(i)]
+            foundID = groupCollection.find_one({"globals":"Y"})["groupID"]
+            items = []
+            added = []
+            if(foundID == (1000+int(groupID))):
+                res1= groupCollection.find_one({"globals":"Y"})["groupMembers"]
+                res =   {
+                    "groupMembers": res1
+                        }
+
+    return Response(res)
+
+@api_view(('GET',))
+def getFirstName(request, username):
+    res = userPassCollections.find_one({"username":username})["firstName"]
+    return Response(res)
+
+@api_view(('GET',))
 def testing(request):
     return render(request, 'testing.html')
 
@@ -238,3 +280,7 @@ def DEBUG_resetUserPassCollection(request):
     userPassCollections.delete_many({})
     userPassCollections.insert_one({"globals":"Y", "numgroups":0})
     return Response("Y")
+
+@api_view(('POST',))
+def testingPost(request):
+    return Response(status=status.HTTP_202_ACCEPTED)
