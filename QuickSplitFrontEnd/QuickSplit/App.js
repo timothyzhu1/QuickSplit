@@ -18,7 +18,7 @@ import ResolveAuthScreen from './src/screens/resolveAuth.js';
 
 const mainNavigator = createSwitchNavigator({
     ResolveAuth: ResolveAuthScreen,
-  login: createStackNavigator({
+  login: createSwitchNavigator({
     signin: {
         screen: signin,
         navigationOptions: {

@@ -16,7 +16,7 @@ import { Entypo, Ionicons } from '@expo/vector-icons';
 let activeGlobal, setActiveGlobal;
 
 const listofGroups = ({navigation}) => {
-    const {state, getgroupNames, joinGroup, createGroup, deleteGroup} = useContext(groupContext);
+    const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
     const [groups, setGroups] = useState(null);
     const [active, setActive] = useState(false);
     const [secondModal, setsecondModal] = useState(false);
@@ -28,8 +28,9 @@ const listofGroups = ({navigation}) => {
     console.log(groupCode)
     useEffect(() => {
         getgroupNames();
-
+        getPersonName();
     },[]);
+    console.log(state.groupNames)
     const alert = (group) => {
         console.log(group)
         Alert.alert('Leaving A Group', 'Are you sure you would like to leave this group?', [

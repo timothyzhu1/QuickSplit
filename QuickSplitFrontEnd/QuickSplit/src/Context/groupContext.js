@@ -10,6 +10,8 @@ const groupReducer = (state, action) => {
   switch(action.type){
     case 'groupNames':
       return {...state, groupNames: action.payload}
+    case 'personName':
+        return {...state, personName: action.payload}
       case 'noAdd':
         return {...state, noAdd: action.payload}
     default:
@@ -20,9 +22,19 @@ const groupReducer = (state, action) => {
 const getgroupNames = (dispatch) => async() => { //retrieves the members of a certain group
     try{
       const user = await AsyncStorage.getItem('user');
-      const response = await api.get(`/getGroupNames/${user}`);
-      console.log(response.data.things);
-      dispatch({type: 'groupNames', payload: response.data.groupNames})
+      const response = await api.get(`/getGroupNames/${user}/`);
+      dispatch({type:'groupNames', payload: response.data.groupNames})
+    }
+    catch(err){
+      console.log(err);
+  }
+}
+
+const getPersonName = (dispatch) => async() => { //retrieves the members of a certain group
+    try{
+      const user = await AsyncStorage.getItem('user');
+      const response = await api.get(`/getFirstName/${user}/`);
+      console.log(response.data)
     }
     catch(err){
       console.log(err);
@@ -35,7 +47,6 @@ const joinGroup = (dispatch) => { //post reuqest for joining a group given a cod
     try{
       const user = await AsyncStorage.getItem('user');
       const response = await api.get(`/joinGroup/${user}/${groupCode}/`)
-      console.log(response.data)
 
     }
     catch(err){
@@ -50,7 +61,6 @@ const createGroup = (dispatch) => { //
         try{
             const user = await AsyncStorage.getItem('user');
             const response = await api.post(`/createGroup/${user}/${newGroupName}/`);
-            console.log(response.data);
         }
         catch (err) {
             console.log(err);
@@ -65,7 +75,6 @@ const createGroup = (dispatch) => { //
         const user = await AsyncStorage.getItem('user');
         const groupID = await api.get(`/getGroupID/${user}/${group}/`);
         const deleteGroup = await api.get(`/leaveGroup/${user}/${100 + groupID.data.groupID}/`);
-        console.log(deleteGroup.data)
       }
       catch(err){ //still need to edit
         console.log(err);
@@ -75,6 +84,6 @@ const createGroup = (dispatch) => { //
 
 export const { Provider, Context} = context(
   groupReducer,
-  {getgroupNames, joinGroup, deleteGroup, createGroup},
-  {groupNames:[]}
+  {getgroupNames, joinGroup, deleteGroup, createGroup, getPersonName},
+  {groupNames:[], personName: ''}
 )

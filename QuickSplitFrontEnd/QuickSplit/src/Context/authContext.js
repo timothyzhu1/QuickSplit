@@ -54,9 +54,9 @@ const signin = (dispatch) => {
 }
 
   const signup = (dispatch) => {
-    return async ({user, pass}) => {
+    return async ({user, pass, fullName}) => {
       try{
-        const response = await api.get(`/signUp/${user}/${pass}/`)
+        const response = await api.get(`/signUp/${user}/${pass}/${fullName}`)
         if(response.data.Worked == 'N'){
           dispatch({type: 'invalid', payload: 'The username or password has already been taken'})
         }

@@ -1,15 +1,15 @@
-import React, {useState, useContext} from 'react'
-import { View, StyleSheet, TextInput, Button, TouchableOpacity} from 'react-native';
+import React, {useState, useContext, useEffect} from 'react';
+import { View, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Image, Text } from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as authContext} from '../Context/authContext'
-import { ApplicationProvider, Layout, Input, Text} from '@ui-kitten/components';
-import { mapping, light as lightTheme } from '@eva-design/eva';
+import LottieView from 'lottie-react-native';
 import NavLink from '../components/NavLink'
 
 const signUp = ({navigation}) => {
   const {state, signup} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+  const [fullName, setFullName] = useState("");
   return (
         <View style={styles.container}>
 
@@ -30,6 +30,12 @@ const signUp = ({navigation}) => {
             value= {user}
             onChangeText={(user) => setUser(user)}
             />
+            <TextInput
+              style={styles.input}
+              placeholder= "Full Name"
+              value= {fullName}
+              onChangeText={(fullName) => setFullName(fullName)}
+              />
         <TextInput
             style={styles.input}
             placeholder= "Password"
@@ -39,15 +45,15 @@ const signUp = ({navigation}) => {
             />
         <TouchableOpacity
                 style={styles.button}
-                onPress={()=> signin({user, pass})}
+                onPress={()=> signup({user, pass, fullName})}
                 >
         <Text style={styles.signIn}>Sign In</Text>
         </TouchableOpacity>
         </KeyboardAvoidingView>
               <Text style={styles.invalid}>{state.invalid}</Text>
             <NavLink
-                routeName="signup"
-                text="Dont have an account? Sign up"
+                routeName="signin"
+                text="Already have an account? Sign in"
               />
       </View>
   )
@@ -55,19 +61,54 @@ const signUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    justifyContent: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'white',
   },
-  text:{
-    padding: 10
+  animation: {
+      height: 300,
+      alignSelf: 'center'
+  },
+  title: {
+      fontFamily: 'Kohinoor Bangla',
+      fontSize: 60,
+      alignSelf: 'center'
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 30,
+    alignItems: 'center',
+    flexDirection:'row'
+  },
+  button: {
+    height: 40,
+    marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: '#28c716',
+    borderRadius: 8,
+    justifyContent: 'center'
   },
   invalid: {
     color: 'black'
   },
+  signIn: {
+      fontSize: 20,
+      alignSelf: 'center',
+      color: 'white',
+      fontFamily: 'Kohinoor Bangla'
+  },
   input: {
-    flexDirection: 'column',
-    padding: 5,
-    marginLeft: 5
+    padding: 10,
+    marginBottom: 15,
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 20,
+    borderBottomWidth: 5,
+    borderLeftWidth: 3,
+    borderRightWidth: 3,
+    height: 50
   }
 })
 export default signUp
