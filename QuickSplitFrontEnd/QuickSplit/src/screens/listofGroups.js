@@ -70,14 +70,14 @@ listofGroups.navigationOptions = ({navigation}) => {
       headerStyle: {
         backgroundColor: '#28c716',
         borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30
+        borderBottomRightRadius: 30,
       },
-        headerTitle: <Text style={{fontSize: 30, marginTop: 5, color: 'white', fontFamily: 'Kohinoor Bangla'}}>Your Groups</Text>,
+        headerTitle: <Text style={{fontSize: 30, marginTop: 3, color: 'white', fontFamily: 'Kohinoor Bangla'}}>Your Groups</Text>,
         headerRight:
             <TouchableOpacity
                 onPress={() => {globalSetModal1State();}}
                 style={{marginRight: 20}}>
-                <AntDesign name="pluscircleo" size={35} color="white" />
+                <AntDesign name="pluscircleo" size={30} color="white" />
             </TouchableOpacity>
     };
 };

@@ -16,6 +16,30 @@ import itemLists from './src/screens/itemList'
 import addGroup from './src/screens/addGroup'
 import addItem from './src/screens/addItem'
 import ResolveAuthScreen from './src/screens/resolveAuth.js';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+
+const groupListFlow = createStackNavigator({
+  groupList: listofGroups,
+  itemLists: itemLists,
+  addGroup: addGroup,
+  addItem: addItem
+});
+
+groupListFlow.navigationOptions = {
+    title: 'Groups',
+    tabBarIcon: <MaterialCommunityIcons name="cash-multiple" size={30}/>,
+
+};
+
+const mainFlow = createBottomTabNavigator({
+    groupListFlow,
+    Account: signout
+});
+
+mainFlow.navigationOptions = {
+    backgroundColor: "#28c716",
+}
+
 
 const mainNavigator = createSwitchNavigator({
     ResolveAuth: ResolveAuthScreen,
@@ -29,15 +53,7 @@ const mainNavigator = createSwitchNavigator({
     },
     signup: signup
   }),
-  main: createBottomTabNavigator({
-    groupListMain: createStackNavigator({
-      groupList: listofGroups,
-      itemLists: itemLists,
-      addGroup: addGroup,
-      addItem: addItem
-    }),
-    Account: signout
-  })
+  mainFlow
 },
     {initialRouteName: 'ResolveAuth',
 });
