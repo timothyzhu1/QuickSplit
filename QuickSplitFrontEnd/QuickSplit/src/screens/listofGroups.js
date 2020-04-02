@@ -60,19 +60,24 @@ const listofGroups = ({navigation}) => {
                 }
                 keyExtractor={(item, index) => item.id }
             />
-            <JoinGroupModal/>
+            <JoinGroupModal />
         </View>
     );
 };
 
 listofGroups.navigationOptions = ({navigation}) => {
     return {
-        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Your Groups</Text>,
+      headerStyle: {
+        backgroundColor: '#28c716',
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30
+      },
+        headerTitle: <Text style={{fontSize: 30, marginTop: 5, color: 'white', fontFamily: 'Kohinoor Bangla'}}>Your Groups</Text>,
         headerRight:
             <TouchableOpacity
                 onPress={() => {globalSetModal1State();}}
-                style={{marginRight: 10}}>
-                <AntDesign name="pluscircleo" size={25} color="black" />
+                style={{marginRight: 20}}>
+                <AntDesign name="pluscircleo" size={35} color="white" />
             </TouchableOpacity>
     };
 };
@@ -94,18 +99,19 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'rgba(255, 87, 51, 0.9)',
     justifyContent: 'space-between',
-    marginVertical: 8,
+    marginVertical: 15,
     marginHorizontal : 10,
     elevation: 4,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: 'green',
     backgroundColor: '#fff',
     shadowOffset: {
         height: 5
     },
-    shadowColor: 'gray',
+    shadowColor: 'grey',
     shadowRadius: 2,
-    shadowOpacity: 0.6,
+    shadowOpacity: 0.3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

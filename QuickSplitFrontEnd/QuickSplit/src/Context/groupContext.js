@@ -41,13 +41,24 @@ const getPersonName = (dispatch) => async() => { //retrieves the members of a ce
   }
 }
 
-const joinGroup = (dispatch) => { //post reuqest for joining a group given a code
+const joinGroup = (dispatch) => {
   return async({groupCode}) => {
     console.log(groupCode);
     try{
+      const noExist = 'This Group Does not Exist. Try Again'
+      const alreadyIn = 'You are Already in this Group'
+      const wrong = 'Sorry, Something Went Wrong'
       const user = await AsyncStorage.getItem('user');
       const response = await api.get(`/joinGroup/${user}/${groupCode}/`)
-
+      if(response.data.Worked == 'N'){
+        dispatch({type:'noAdd', payload: alreadyIn })
+      }
+      else if(response.data.Worked == 'D'){
+        dispatch({type:'noAdd', payload: noExist})
+      }
+      else if(response.data.Worked == 'F'){
+        dispatch({type:'noAdd', payload: wrong})
+      }
     }
     catch(err){
       console.log(err)
@@ -60,7 +71,8 @@ const createGroup = (dispatch) => { //
         console.log(newGroupName)
         try{
             const user = await AsyncStorage.getItem('user');
-            const response = await api.post(`/createGroup/${user}/${newGroupName}/`);
+            const response = await api.get(`/createGroup/${user}/${newGroupName}/`);
+            console.log(response.data)
         }
         catch (err) {
             console.log(err);

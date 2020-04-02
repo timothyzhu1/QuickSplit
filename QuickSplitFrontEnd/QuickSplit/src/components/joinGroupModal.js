@@ -10,7 +10,6 @@ const JoinGroupModal = () => {
     const GroupStateObj = useContext(groupContext);
     const [groupCode, setGroupCode] = useState('');
     const [newGroupName, setnewgroupName] = useState('');
-
     return (
         <View>
 
@@ -23,20 +22,24 @@ const JoinGroupModal = () => {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text>Enter the Group Code Here</Text>
+                            <TouchableOpacity
+                                onPress={() => ModalStateObj.setModal1State()}
+                                style={styles.exit}>
+                                <Entypo name="circle-with-cross" size={40} color="black"/>
+                            </TouchableOpacity>
+                            <Text style={styles.title}>Enter the Group Code Here</Text>
                             <TextInput
                                 placeholder="Enter code here"
                                 onChangeText={(groupCode) => setGroupCode(groupCode)}
-                            >
-                            </TextInput>
+                                style={styles.input}
+                            />
                             <TouchableOpacity
-                                onPress={() => ModalStateObj.setModal1State()}>
-                                <Entypo name="circle-with-cross" size={50} color="black"/>
-                            </TouchableOpacity>
-
-
-                            <TouchableOpacity onPress={() => GroupStateObj.joinGroup({groupCode})}>
-                                <Text>Join Group</Text>
+                            onPress={() => GroupStateObj.joinGroup({groupCode})}
+                            style={styles.button}
+                            >
+                                <Text
+                                style={styles.text}
+                                >Join Group</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -45,8 +48,9 @@ const JoinGroupModal = () => {
                                     ModalStateObj.setModal2State()}
                                     }
                                 >
-                                <Text>Create a group here</Text>
-
+                                <Text
+                                style={styles.switch}
+                                >Don't have a group? Create a group here</Text>
                         </TouchableOpacity>
                         </View>
                     </View>
@@ -54,38 +58,44 @@ const JoinGroupModal = () => {
             </View>
 
             <View style={styles.centeredView}>
-
                 <Modal
                     visible={ModalStateObj.state.modal2Active}
                     animationType="slide"
                     transparent={true}
                 >
-                    <View styles={styles.centeredView}>
+                    <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text>Enter the Name of your Group</Text>
-                            <TextInput
-                                placeholder="Enter Name here"
-                                onChangeText={(newGroupName) => setnewgroupName(newGroupName)}
-                            >
-                            </TextInput>
-                            <Text>{groupCode}</Text>
-
-                            <TouchableOpacity onPress={() => ModalStateObj.setModal2State()}>
-                                <Entypo name="circle-with-cross" size={50} color="black" style={styles.add}/>
-                            </TouchableOpacity>
-
                             <TouchableOpacity
-                                onPress={() => GroupStateObj.createGroup({newGroupName})}>
-                                <Text>Create Group</Text>
+                                onPress={() => ModalStateObj.setModal2State()}
+                                style={styles.exit}>
+                                <Entypo name="circle-with-cross" size={40} color="black"/>
                             </TouchableOpacity>
+                            <Text style={styles.title}>Enter Your Group's Name</Text>
+                            <TextInput
+                                placeholder="Group Name"
+                                onChangeText={(newGroupName) => setnewgroupName(newGroupName)}
+                                style={styles.input}
+                            />
+                            <TouchableOpacity
+                            onPress={() => GroupStateObj.createGroup(newGroupName)}
+                            style={styles.button}
+                            >
+                                <Text
+                                style={styles.text}
+                                >Create Group</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity
                                 onPress={() =>
-                                    {ModalStateObj.setModal2State(),
-                                    ModalStateObj.setModal1State()}
+                                    {ModalStateObj.setModal1State(),
+                                    ModalStateObj.setModal2State()}
                                     }
                                 >
-                                <Text>Join a group here</Text>
-                            </TouchableOpacity>
+                                <Text
+                                style={styles.switch}
+                                >Already have a group? Join a Group Here</Text>
+
+                        </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
@@ -106,6 +116,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 22
     },
+    exit: {
+      alignSelf: 'flex-end',
+      right: 10
+    },
     modalView: {
       margin: 20,
       alignItems: 'center',
@@ -114,7 +128,7 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       borderRadius: 20,
       //padding: 35,
-      shadowColor: "#000",
+      shadowColor: "#2bcf3e",
       shadowOffset: {
         width: 0,
         height: 2
@@ -123,6 +137,38 @@ const styles = StyleSheet.create({
       shadowRadius: 3.84,
       elevation: 5
     },
+    title: {
+      fontSize: 24,
+      fontFamily: 'Kohinoor Bangla',
+      paddingTop: 10
+    },
+    text: {
+      fontSize: 24,
+      fontFamily: 'Kohinoor Bangla',
+    },
+    input: {
+      height: 50,
+      width: 250,
+      fontSize: 25,
+      borderWidth: 3,
+      color: 'black',
+      borderRadius: 9,
+      marginTop: 10
+    },
+    button: {
+      height: 40,
+      width: 200,
+      marginTop: 20,
+      backgroundColor: '#28c716',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    switch: {
+      paddingTop: 10,
+      fontFamily: 'Kohinoor Bangla',
+      color: 'blue'
+    }
 
 });
 export default JoinGroupModal;
