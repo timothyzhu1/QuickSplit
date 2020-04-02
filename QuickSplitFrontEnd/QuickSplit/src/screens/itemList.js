@@ -14,8 +14,7 @@ const itemLists = ({navigation}) => {
   const groupName = navigation.state.params;
 
   useEffect(() => {
-    itemList();
-    retMembers();
+    itemList(groupName);
   }, []);
 
   itemLists.navigationOptions = ({navigation}) => {
@@ -38,7 +37,7 @@ const itemLists = ({navigation}) => {
             data={state.items}
             renderItem = {
                 ({item}) =>
-                <Text style={styles.list}>{state.items}</Text>
+                <Text style={styles.list}>{item.itemName} was added by {item.addedBy}. The price is {item.price}</Text>
             }
             keyExtractor={(item, index) => item.index }
         />

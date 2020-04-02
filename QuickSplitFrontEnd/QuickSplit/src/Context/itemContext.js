@@ -24,17 +24,15 @@ const itemReducer = (state, action) => {
 };
 
 const itemList = (dispatch) => {
-  return async() => {
+  return async(groupName) => {
     try{
       const user = await AsyncStorage.getItem('user');
-      const groupName = await AsyncStorage.getItem('groupName');
       const response = await api.get(`/getGroupID/${user}/${groupName}/`);
       dispatch({type:'groupID', payload: response.data.groupID})
       await AsyncStorage.setItem('groupID', response.data.groupID);
       const itemResponse = await api.get(`/getItems/${response.data.groupID}`)
       console.log(itemResponse.data)
-      dispatch({type:'items', payload: itemResponse.data.items})
-      dispatch({type:'added', payload: itemResponse.data.added})
+      dispatch({type:'items', payload: itemResponse.data.item})
     }
     catch(err){
       console.log(err)
