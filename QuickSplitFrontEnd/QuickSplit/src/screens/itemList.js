@@ -15,6 +15,7 @@ const itemLists = ({navigation}) => {
 
   useEffect(() => {
     itemList(groupName);
+    retMembers(groupName)
   }, []);
 
   itemLists.navigationOptions = ({navigation}) => {

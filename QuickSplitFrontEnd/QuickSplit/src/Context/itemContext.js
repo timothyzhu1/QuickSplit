@@ -42,10 +42,11 @@ const itemList = (dispatch) => {
 }
 
 const retMembers = (dispatch) => {
-  return async() => {
+  return async(groupName) => {
     try{
-      const groupID = await AsyncStorage.getItem('groupID');
-      const response = await api.get(`/getGroupMembers/${groupID}/`);
+      const user = await AsyncStorage.getItem('user');
+      const group = await api.get(`/getGroupID/${user}/${groupName}/`);
+      const response = await api.get(`/getGroupMembers/${group.data.groupID}/`);
       dispatch({type:'retMembers', payload: response.data.groupMembers})
     }
     catch(err){
