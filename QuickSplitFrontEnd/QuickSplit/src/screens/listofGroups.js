@@ -12,7 +12,7 @@ import JoinGroupModal from '../components/joinGroupModal'
 import {Constants} from 'expo'
 import {navigate} from '../navigationRef'
 import { AsyncStorage} from 'react-native';
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Entypo, AntDesign, Feather } from '@expo/vector-icons';
 
 
 let personName;
@@ -54,7 +54,7 @@ const listofGroups = ({navigation}) => {
                         <Text style={styles.groups}>{item.group}</Text>
                         <TouchableOpacity
                             onPress={() => alert(item.group)}>
-                            <Ionicons name="ios-remove-circle-outline" style={styles.deleteGroup} size={35} color="black"/>
+                            <Feather name="trash-2" style={styles.deleteGroup} color="black"/>
                         </TouchableOpacity >
                     </TouchableOpacity>
                 }
@@ -67,12 +67,12 @@ const listofGroups = ({navigation}) => {
 
 listofGroups.navigationOptions = ({navigation}) => {
     return {
-        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>{personName}</Text>,
+        headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Your Groups</Text>,
         headerRight:
             <TouchableOpacity
                 onPress={() => {globalSetModal1State();}}
                 style={{marginRight: 10}}>
-                <Entypo name="circle-with-plus" size={32} color="black" />
+                <AntDesign name="pluscircleo" size={25} color="black" />
             </TouchableOpacity>
     };
 };
@@ -110,25 +110,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
 },
-modalView: {
-  //margin: 70,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 300,
-  height: 300,
-  backgroundColor: "white",
-  borderRadius: 20,
-  //padding: 35,
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 2
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 3.84,
-  elevation: 5
-},
 input: {
     borderBottomColor: "black",
     borderBottomWidth: 1,
@@ -147,8 +128,8 @@ add: {
     position: 'absolute'
 },
 deleteGroup: {
-    fontSize: 35,
-    paddingRight: 5
+    fontSize: 30,
+    marginRight: 10
 }
 })
 export default listofGroups;
