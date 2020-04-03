@@ -6,12 +6,20 @@ import { ApplicationProvider, Layout, Input} from '@ui-kitten/components';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import NavLink from '../components/NavLink'
 import { AsyncStorage} from 'react-native';
-import { Ionicons, Entypo } from '@expo/vector-icons';
 import {navigate} from '../navigationRef'
+import JoinGroupModal from '../components/joinGroupModal'
+import { Entypo, AntDesign, Feather } from '@expo/vector-icons';
+import {Context as modalContext} from '../Context/modalContext';
+
+
+let globalSetModal1State;
 
 const itemLists = ({navigation}) => {
   const {state, itemList, retMembers} = useContext(itemContext)
   const groupName = navigation.state.params;
+  const ModalStateObj = useContext(modalContext);
+
+  globalSetModal1State = ModalStateObj.setModal1State;
 
   useEffect(() => {
     itemList(groupName);
@@ -20,14 +28,21 @@ const itemLists = ({navigation}) => {
 
   itemLists.navigationOptions = ({navigation}) => {
       return {
-          headerTitle: <Text style={{fontSize: 20, marginTop: 5}}>Items</Text>,
+        headerStyle: {
+          backgroundColor: '#28c716',
+          borderBottomLeftRadius: 30,
+          borderBottomRightRadius: 30,
+        },
+          headerTitle: <Text style={{fontSize: 30, marginTop: 3, color: 'white', fontFamily: 'Kohinoor Bangla'}}>Your Items</Text>,
           headerRight:
-              <TouchableOpacity onPress={() => {navigate('addItem')}}>
-                  <Entypo name="circle-with-plus" size={32} color="black" />
+              <TouchableOpacity
+                  onPress={() => {globalSetModal1State();}}
+                  style={{marginRight: 20}}>
+                  <AntDesign name="pluscircleo" size={30} color="white" />
               </TouchableOpacity>
       };
   };
-  console.log(state.items)
+  console.log(state.members)
   return (
     <View>
 
@@ -43,9 +58,23 @@ const itemLists = ({navigation}) => {
             keyExtractor={(item, index) => (item.id).toString() }
         />
             <Text>These r ur members</Text>
+            <FlatList
+                data={state.members.groupMembers}
+                renderItem = {
+                    ({item}) =>
+                    <Text style={styles.list}>{item}</Text>
+                }
+                keyExtractor={(item, index) => 'key'+index} //lol kinda wierd but whatever
+
+            />
+            <JoinGroupModal
+            title="Add Item"
+            buttonTitle="Add Item"
+            />
     </View>
   );
 }
+
 
 
 

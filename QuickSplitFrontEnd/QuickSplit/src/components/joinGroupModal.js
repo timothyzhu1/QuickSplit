@@ -4,7 +4,7 @@ import {Context as modalContext} from '../Context/modalContext';
 import {Context as groupContext} from '../Context/groupContext';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 
-const JoinGroupModal = () => {
+const JoinGroupModal = (props) => {
     const ModalStateObj = useContext(modalContext);
     //const {state, getgroupNames, joinGroup, createGroup, deleteGroup, getPersonName} = useContext(groupContext);
     const GroupStateObj = useContext(groupContext);
@@ -27,9 +27,9 @@ const JoinGroupModal = () => {
                                 style={styles.exit}>
                                 <Entypo name="circle-with-cross" size={40} color="black"/>
                             </TouchableOpacity>
-                            <Text style={styles.title}>Enter the Group Code Here</Text>
+                            <Text style={styles.title}>{props.title}</Text>
                             <TextInput
-                                placeholder="Enter code here"
+                                placeholder={props.placeholderText}
                                 onChangeText={(groupCode) => setGroupCode(groupCode)}
                                 style={styles.input}
                             />
@@ -39,7 +39,7 @@ const JoinGroupModal = () => {
                             >
                                 <Text
                                 style={styles.text}
-                                >Join Group</Text>
+                                >{props.buttonTitle}</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -50,7 +50,7 @@ const JoinGroupModal = () => {
                                 >
                                 <Text
                                 style={styles.switch}
-                                >Don't have a group? Create a group here</Text>
+                                >{props.switch}</Text>
                         </TouchableOpacity>
                         </View>
                     </View>

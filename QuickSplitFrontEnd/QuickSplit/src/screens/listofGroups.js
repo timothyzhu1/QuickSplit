@@ -60,7 +60,12 @@ const listofGroups = ({navigation}) => {
                 }
                 keyExtractor={(item, index) => item.id }
             />
-            <JoinGroupModal />
+            <JoinGroupModal
+            title="Add Group"
+            buttonTitle="Join Group"
+            switch="Don't have a group? Create a group here"
+            placeholderText="Enter Group Code Here"
+            />
         </View>
     );
 };

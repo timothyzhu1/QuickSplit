@@ -31,7 +31,6 @@ const itemList = (dispatch) => {
       dispatch({type:'groupID', payload: response.data.groupID})
       await AsyncStorage.setItem('groupID', response.data.groupID);
       const itemResponse = await api.get(`/getItems/${response.data.groupID}`)
-      console.log(itemResponse.data)
       dispatch({type:'items', payload: itemResponse.data.item})
     }
     catch(err){
@@ -47,7 +46,8 @@ const retMembers = (dispatch) => {
       const user = await AsyncStorage.getItem('user');
       const group = await api.get(`/getGroupID/${user}/${groupName}/`);
       const response = await api.get(`/getGroupMembers/${group.data.groupID}/`);
-      dispatch({type:'retMembers', payload: response.data.groupMembers})
+      console.log(response.data)
+      dispatch({type:'retMembers', payload: response.data})
     }
     catch(err){
       console.log(err)
