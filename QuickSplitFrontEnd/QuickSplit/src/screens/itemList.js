@@ -40,16 +40,9 @@ const itemLists = ({navigation}) => {
                 ({item}) =>
                 <Text style={styles.list}>{item.itemName} was added by {item.addedBy}. The price is {item.price}</Text>
             }
-            keyExtractor={(item, index) => item.index }
+            keyExtractor={(item, index) => (item.id).toString() }
         />
             <Text>These r ur members</Text>
-        <FlatList
-            data={Object.keys(state.members)}
-            renderItem = {({item}) =>
-              <Text>{state.members[item]}</Text>
-            }
-            keyExtractor={(item, index) => item.index }
-        />
     </View>
   );
 }
