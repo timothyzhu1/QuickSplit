@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { View, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Image, Text } from 'react-native';
+import { View, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Image, Text, ImageBackground } from 'react-native';
 // import RegisterComponent from '../components/RegisterComponent'
 import {Context as authContext} from '../Context/authContext';
 import {NavigationEvents} from 'react-navigation';
@@ -15,26 +15,27 @@ const signIn = ({navigation}) => {
   }, [])
   return (
         <View style={styles.container}>
-
+          <Image
+          source={require('../images/homescreenbgimage.png')}
+          style={styles.image}
+          />
               <Text style={styles.title}>QuickSplit</Text>
-            <LottieView
-            source={require('../images/animation3.json')}
-            autoPlay
-            loop
-            style={styles.animation}
-            />
         <KeyboardAvoidingView
             keyboardVerticalOffset={20}
             behavior="padding"
             >
+            <Image
+            source={require('../images/qscartlogo.png')}
+            styles={styles.logo}
+            />
           <TextInput
-            style={styles.input}
+            style={styles.input1}
             placeholder= "Username"
             value= {user}
             onChangeText={(user) => setUser(user)}
             />
         <TextInput
-            style={styles.input}
+            style={styles.input2}
             placeholder= "Password"
             secureTextEntry={true}
             value = {pass}
@@ -60,11 +61,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
   },
-  animation: {
-      height: 300,
-      alignSelf: 'center'
+  logo: {
+    width: 30,
+    height: 50
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
   title: {
       fontFamily: 'Kohinoor Bangla',
@@ -72,20 +77,10 @@ const styles = StyleSheet.create({
       alignSelf: 'center'
   },
   image: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
-    alignItems: 'center',
-    flexDirection:'row'
-  },
-  button: {
-    height: 40,
-    marginTop: 30,
-    marginLeft: 10,
-    marginRight: 10,
-    backgroundColor: '#28c716',
-    borderRadius: 8,
-    justifyContent: 'center'
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
   },
   invalid: {
     color: 'black'
@@ -96,14 +91,35 @@ const styles = StyleSheet.create({
       color: 'white',
       fontFamily: 'Kohinoor Bangla'
   },
-  input: {
-    padding: 10,
-    marginBottom: 15,
+  input1: {
+    borderTopWidth: 3,
+    borderRadius: 50,
+    borderColor: 'white',
+    marginLeft: 15,
+    marginRight: 10,
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    height: 50,
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+  },
+  input2: {
+    borderRadius: 50,
+    borderColor: 'white',
     marginLeft: 10,
     marginRight: 10,
-    borderRadius: 20,
-    borderBottomWidth: 5,
+    borderBottomWidth: 3,
     borderLeftWidth: 3,
+    height: 50,
+    borderBottomRightRadius: 0,
+    width: 380,
+  },
+  button: {
+    borderRadius: 50,
+    borderColor: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+    borderBottomWidth: 3,
     borderRightWidth: 3,
     height: 50
   }
