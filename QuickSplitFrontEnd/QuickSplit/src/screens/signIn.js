@@ -6,13 +6,25 @@ import {NavigationEvents} from 'react-navigation';
 import NavLink from '../components/NavLink';
 import LottieView from 'lottie-react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import SignInForm from '../components/SignInForm';
+import {Feather, MaterialCommunityIcons} from '@expo/vector-icons';
 
 const signIn = ({navigation}) => {
   const {state, signin, trySignin} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+
   useEffect(() => {
-  }, [])
+  }, []);
+  /*
+
+  <TextInput
+    style={styles.input1}
+    placeholder= "Username"
+    value= {user}
+    onChangeText={(user) => setUser(user)}
+    />
+    */
   return (
         <View style={styles.container}>
           <Image
@@ -28,25 +40,14 @@ const signIn = ({navigation}) => {
             source={require('../images/qscartlogo.png')}
             styles={styles.logo}
             />
-          <TextInput
-            style={styles.input1}
-            placeholder= "Username"
-            value= {user}
-            onChangeText={(user) => setUser(user)}
+            <SignInForm
+                value1={user}
+                onChangeTextCallback1={setUser}
+                value2={pass}
+                onChangeTextCallback2={setPass}
+                submitCallback={() => {signin(user, pass)}}
             />
-        <TextInput
-            style={styles.input2}
-            placeholder= "Password"
-            secureTextEntry={true}
-            value = {pass}
-            onChangeText={(pass) => setPass(pass)}
-            />
-        <TouchableOpacity
-                style={styles.button}
-                onPress={()=> signin({user, pass})}
-                >
-        <Text style={styles.signIn}>Sign In</Text>
-        </TouchableOpacity>
+
         </KeyboardAvoidingView>
               <Text style={styles.invalid}>{state.invalid}</Text>
             <NavLink
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 30,
-    height: 50
+    height: 50,
+    alignSelf: 'center'
   },
   image: {
     flex: 1,
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   title: {
       fontFamily: 'Kohinoor Bangla',
       fontSize: 60,
-      alignSelf: 'center'
+      alignSelf: 'center',
   },
   image: {
     flex: 1,
@@ -85,12 +87,7 @@ const styles = StyleSheet.create({
   invalid: {
     color: 'black'
   },
-  signIn: {
-      fontSize: 20,
-      alignSelf: 'center',
-      color: 'white',
-      fontFamily: 'Kohinoor Bangla'
-  },
+
   input1: {
     borderTopWidth: 3,
     borderRadius: 50,
