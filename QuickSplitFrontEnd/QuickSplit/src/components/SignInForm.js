@@ -34,8 +34,9 @@ Icon, placeholderText, value, onChangeTextCallback
                 <TextInput
                     style={styles.input}
                     value={value2}
-                    onChangeText={(newValue) => onChangeTextCallback2(newValue)}
+                    onChangeText={(newValue) => {onChangeTextCallback2(newValue)}}
                     placeholder="Password"
+                    secureTextEntry={true}
                     autoCapitalize="none"
                     autoCompleteType="off"
                     autoCorrect={false}

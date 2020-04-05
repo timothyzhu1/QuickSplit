@@ -34,6 +34,7 @@ const trySignin = dispatch => async () => {
 const signin = (dispatch) => {
   return async({user, pass}) => {
     try{
+        console.log("signin called, user: " + user + "pass: " + pass);
       const response = await api.get(`/signIn/${user}/${pass}/`);
       if(response.data.Worked == 'N'){
         dispatch({type: 'invalid', payload: 'Incorrect Credentials'})

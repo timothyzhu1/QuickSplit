@@ -32,15 +32,17 @@ const signIn = ({navigation}) => {
           source={require('../images/homescreenbgimage.png')}
           style={styles.image}
           />
-              <Text style={styles.title}>QuickSplit</Text>
+
         <KeyboardAvoidingView
             keyboardVerticalOffset={20}
             behavior="padding"
             >
+
             <Image
             source={require('../images/qscartlogo.png')}
             styles={styles.logo}
             />
+            <Text style={styles.title}>QuickSplit</Text>
             <SignInForm
                 value1={user}
                 onChangeTextCallback1={setUser}
@@ -78,7 +80,8 @@ const styles = StyleSheet.create({
       fontFamily: 'Kohinoor Bangla',
       fontSize: 60,
       alignSelf: 'center',
-      color: "white"
+      color: "white",
+      marginVertical: 20
   },
   image: {
     flex: 1,
