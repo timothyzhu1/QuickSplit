@@ -45,7 +45,7 @@ Icon, placeholderText, value, onChangeTextCallback
                 <View style={styles.background2}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={()=> submitCallback}
+                        onPress={()=> submitCallback()}
                     >
                         <Text style={styles.signIn}>Sign In</Text>
                     </TouchableOpacity>
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 10,
         borderRadius: 20,
-        borderWidth: 2
+        borderWidth: 2,
+        backgroundColor: "rgba(255, 255, 255, 0.4)"
     },
     background2: {
         flexDirection: 'row',
@@ -82,24 +83,27 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 50,
         borderRadius: 20,
-        borderWidth: 2
+        borderWidth: 2,
     },
     icon: {
         fontSize: 30,
         alignSelf: 'center',
-        marginHorizontal: 15
+        marginHorizontal: 15,
+        color: "white"
     },
     input: {
         flex: 1,
         fontSize: 18,
+        color: "white"
     },
     signIn: {
         flex: 1,
-        fontSize: 20,
-        marginVertical: 7,
+        fontSize: 25,
+        marginVertical: 5,
         alignSelf: 'center',
         color: 'white',
-        fontFamily: 'Kohinoor Bangla'
+        fontFamily: 'Kohinoor Bangla',
+        fontWeight: 'bold'
     },
 
 });

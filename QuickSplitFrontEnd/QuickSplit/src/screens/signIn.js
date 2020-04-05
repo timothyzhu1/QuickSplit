@@ -13,6 +13,7 @@ const signIn = ({navigation}) => {
   const {state, signin, trySignin} = useContext(authContext)
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+  let image;
 
   useEffect(() => {
   }, []);
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Kohinoor Bangla',
       fontSize: 60,
       alignSelf: 'center',
+      color: "white"
   },
   image: {
     flex: 1,
