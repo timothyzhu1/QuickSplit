@@ -32,7 +32,7 @@ const trySignin = dispatch => async () => {
 }
 
 const signin = (dispatch) => {
-  return async({user, pass}) => {
+  return async(user, pass) => {
     try{
         console.log("signin called, user: " + user + "pass: " + pass);
       const response = await api.get(`/signIn/${user}/${pass}/`);
@@ -55,7 +55,7 @@ const signin = (dispatch) => {
 }
 
   const signup = (dispatch) => {
-    return async ({user, pass, fullName}) => {
+    return async (user, pass, fullName) => {
       try{
         const response = await api.get(`/signUp/${user}/${pass}/${fullName}`)
         if(response.data.Worked == 'N'){
